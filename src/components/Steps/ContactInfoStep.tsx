@@ -280,7 +280,7 @@ const ContactInfoStep: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl p-6 shadow-xl"
+            className="bg-white rounded-2xl p-4 shadow-xl"
           >
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.contactInfo.quoteSummary')}</h3>
             {costBreakdown && (
@@ -300,7 +300,7 @@ const ContactInfoStep: React.FC = () => {
                 <div className="border-t pt-3">
                   <div className="flex justify-between">
                     <span className="font-semibold text-gray-800">{t('steps.contactInfo.quoteSummaryItems.totalInvestment')}</span>
-                    <span className="font-bold text-xl text-accent-600">
+                    <span className="font-bold text-md text-accent-600">
                       SAR {costBreakdown.total.toLocaleString()}
                     </span>
                   </div>
@@ -310,7 +310,7 @@ const ContactInfoStep: React.FC = () => {
           </motion.div>
 
           {/* Privacy Notice */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -323,7 +323,7 @@ const ContactInfoStep: React.FC = () => {
               <p>• {t('steps.contactInfo.privacy.items.2')}</p>
               <p>• {t('steps.contactInfo.privacy.items.3')}</p>
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Next Steps */}
           <motion.div

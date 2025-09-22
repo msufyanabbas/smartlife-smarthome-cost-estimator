@@ -522,7 +522,7 @@ const ThreeVisualizationStep: React.FC = () => {
       </div>
 
       {/* Visualization Tips */}
-      <div className="mt-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+      {/* <div className="mt-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
         <h3 className="text-lg font-semibold text-white mb-4">3D Visualization Controls</h3>
         <div className="grid md:grid-cols-3 gap-6 text-white/80 text-sm">
           <div>
@@ -550,7 +550,7 @@ const ThreeVisualizationStep: React.FC = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Navigation */}
       <div className="flex justify-between mt-8">

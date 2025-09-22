@@ -287,7 +287,7 @@ const PropertyDetailsStep: React.FC = () => {
         </div>
 
         {/* Property Summary */}
-        {isFormValid() && (
+        {/* {isFormValid() && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -322,7 +322,7 @@ const PropertyDetailsStep: React.FC = () => {
               )}
             </div>
           </motion.div>
-        )}
+        )} */}
 
         {/* Navigation Buttons */}
         <div className={`flex justify-between mt-12 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -353,7 +353,7 @@ const PropertyDetailsStep: React.FC = () => {
       </motion.div>
 
       {/* Help Tips */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -380,7 +380,7 @@ const PropertyDetailsStep: React.FC = () => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 };

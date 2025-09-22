@@ -1239,7 +1239,7 @@ const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({ floor }) => {
       </div>
 
       {/* Instructions */}
-      <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
+      {/* <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
         <h4 className="font-medium text-blue-800 mb-2">Usage Instructions:</h4>
         <div className="text-sm text-blue-700 space-y-1">
           <p>• Upload DXF or DWG files for automatic CAD parsing and visualization</p>
@@ -1250,7 +1250,7 @@ const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({ floor }) => {
           <p>• Drag selected devices to reposition them</p>
           <p>• Use zoom controls to get a better view</p>
         </div>
-      </div>
+      </div> */}
 
       {/* CAD File Support Info */}
       {!floor.dwgFile && (

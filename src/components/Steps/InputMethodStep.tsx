@@ -45,7 +45,7 @@ const InputMethodStep: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="max-w-6xl mx-auto px-6 py-4">
       {/* Header */}
       <div className="text-center mb-12">
         <motion.h1
@@ -87,20 +87,20 @@ const InputMethodStep: React.FC = () => {
               onClick={() => handleMethodSelect(method.id as 'manual' | 'dwg')}
             >
               {/* Recommended Badge */}
-              {method.recommended && (
+              {/* {method.recommended && (
                 <div className={`absolute top-4 z-10 ${isRTL ? 'right-4' : 'left-4'}`}>
                   <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                     <FaCheckCircle className="w-3 h-3" />
                     {t('steps.inputMethod.recommended')}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Background Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${method.color} opacity-10`} />
               
               {/* Card Content */}
-              <div className="relative bg-white p-8 h-full min-h-[400px] flex flex-col">
+              <div className="relative bg-white p-8 h-full min-h-[200px] flex flex-col">
                 {/* Selection Indicator */}
                 {isSelected && (
                   <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'}`}>
@@ -133,14 +133,14 @@ const InputMethodStep: React.FC = () => {
                   </div>
 
                   {/* Features */}
-                  <div className="space-y-3 pt-4">
+                  {/* <div className="space-y-3 pt-4">
                     {method.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-accent-500 rounded-full flex-shrink-0" />
                         <span className="text-sm text-gray-600">{feature}</span>
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Bottom Highlight */}
@@ -168,7 +168,7 @@ const InputMethodStep: React.FC = () => {
               ? 'bg-gradient-to-r from-primary-900 to-accent-500 text-white hover:shadow-accent-hover hover:-translate-y-1' 
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }
-            ${isRTL ? 'flex-row-reverse' : ''}
+            ${isRTL ? '' : ''}
           `}
         >
           {t('steps.inputMethod.continueWith')} {inputMethod === 'manual' ? t('steps.inputMethod.manualInputShort') : t('steps.inputMethod.floorPlansShort')}
@@ -177,7 +177,7 @@ const InputMethodStep: React.FC = () => {
       </motion.div>
 
       {/* Help Section */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
@@ -212,7 +212,7 @@ const InputMethodStep: React.FC = () => {
             </ul>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 };

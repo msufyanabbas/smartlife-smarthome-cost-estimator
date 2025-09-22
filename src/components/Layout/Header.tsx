@@ -25,7 +25,7 @@ const Header: React.FC = () => {
             <div>
               <div className="flex items-center gap-4">
                 {/* Company Logo Image */}
-                <div className="relative w-48 h-48 lg:w-48 lg:h-48">
+                <div className="relative w-40 h-40 lg:w-40 lg:h-40">
                   {!isRTL ? <Image
                     src="/smart-life-logo-white-text.png"
                     alt="SmartLife Company Logo"
@@ -46,28 +46,28 @@ const Header: React.FC = () => {
           </div>
 
           {/* Main Title */}
-          <h1 className={`text-4xl lg:text-6xl font-bold text-white mb-6 tracking-tight ${
+          <h1 className={`text-4xl lg:text-6xl font-bold text-white mb-4 tracking-tight ${
             isRTL ? 'font-arabic' : ''
           }`}>
             {t('header.title')}
           </h1>
           
           {/* Subtitle */}
-<p className={`text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto mb-8 font-light leading-relaxed ${
+<p className={`text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto font-light leading-relaxed ${
   isRTL ? 'font-arabic text-center' : 'text-center'
 }`}>
   {t('header.subtitle')}
 </p>
           
           {/* Feature Pills */}
-          <div className={`flex flex-wrap justify-center gap-4 mt-8 ${
-            isRTL ? 'flex-row-reverse' : ''
+          <div className={`flex flex-wrap justify-center gap-4 mt-4 ${
+            isRTL ? '' : ''
           }`}>
             <div className="glass px-6 py-3 rounded-full border border-white/30">
               <div className={`flex items-center gap-2 text-white ${
-                isRTL ? 'flex-row-reverse' : ''
+                isRTL ? '' : ''
               }`}>
-                <FaRocket />
+                <FaRocket className={`${isRTL ? "-scale-x-100": ""}`} />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>
                   {t('header.features.aiPowered')}
                 </span>
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
             </div>
             <div className="glass px-6 py-3 rounded-full border border-white/30">
               <div className={`flex items-center gap-2 text-white ${
-                isRTL ? 'flex-row-reverse' : ''
+                isRTL ? '' : ''
               }`}>
                 <FaCog  />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
             </div>
             <div className="glass px-6 py-3 rounded-full border border-white/30">
               <div className={`flex items-center gap-2 text-white ${
-                isRTL ? 'flex-row-reverse' : ''
+                isRTL ? '' : ''
               }`}>
                 <FaHome  />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>

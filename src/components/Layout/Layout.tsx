@@ -47,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({
           {children}
         </main>
         
-        <Footer />
+        {/* <Footer /> */}
         
         {/* Toast Notifications */}
         <Toaster
