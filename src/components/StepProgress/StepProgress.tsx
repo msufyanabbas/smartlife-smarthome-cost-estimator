@@ -15,6 +15,14 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
   const { inputMethod } = useEstimationStore();
   const { t, isRTL } = useLanguage();
 
+  // Convert numbers to Arabic-Indic numerals
+  const toArabicNumerals = (num: number): string => {
+    if (!isRTL) return num.toString();
+    
+    const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+    return num.toString().split('').map(digit => arabicNumerals[parseInt(digit)]).join('');
+  };
+
   // Define steps based on input method
   const getStepConfig = () => {
     const baseSteps = [
@@ -120,12 +128,21 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
   const currentStepIndex = getCurrentStepIndex();
   const progressPercentage = currentStepIndex >= 0 ? (currentStepIndex / (stepConfig.length - 1)) * 100 : 0;
 
+  // Format step count with proper numerals
+  const formatStepCount = () => {
+    const current = toArabicNumerals(currentStepIndex + 1);
+    const total = toArabicNumerals(stepConfig.length);
+    return t('stepProgress.stepCount').replace('{{current}}', current).replace('{{total}}', total);
+  };
+
   return (
     <div className="w-full bg-white rounded-2xl shadow-xl p-6 mb-8">
       <div className={`flex items-center justify-between mb-6 ${isRTL ? '' : ''}`}>
-        <h3 className="text-xl font-semibold text-gray-800">{t('stepProgress.yourProgress')}</h3>
-        <div className="text-sm text-gray-500">
-          {t('stepProgress.stepCount').replace('{{current}}', String(currentStepIndex + 1)).replace('{{total}}', String(stepConfig.length))}
+        <h3 className={`text-xl font-semibold text-gray-800 ${isRTL ? 'font-arabic' : ''}`}>
+          {t('stepProgress.yourProgress')}
+        </h3>
+        <div className={`text-sm text-gray-500 ${isRTL ? 'font-arabic' : ''}`}>
+          {formatStepCount()}
         </div>
       </div>
 
