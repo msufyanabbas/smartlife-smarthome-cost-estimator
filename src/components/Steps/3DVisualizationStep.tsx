@@ -475,30 +475,30 @@ const ThreeVisualizationStep: React.FC = () => {
             </div>
             
             <div className="space-y-3">
-              <div className="flex justify-between text-sm">
+              {/* <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Devices Placed:</span>
                 <span className="font-medium text-gray-800">{(floor.devices || []).length}</span>
-              </div>
-              <div className="flex justify-between text-sm">
+              </div> */}
+              {/* <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Floor Size:</span>
                 <span className="font-medium text-gray-800">
                   {floor.dimensions.width} × {floor.dimensions.height}px
                 </span>
-              </div>
-              {floor.dwgFile && (
+              </div> */}
+              {/* {floor.dwgFile && (
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Floor Plan:</span>
                   <span className="font-medium text-gray-800 truncate max-w-24" title={floor.dwgFile.name}>
                     {floor.dwgFile.name}
                   </span>
                 </div>
-              )}
+              )} */}
               
               {/* Device breakdown */}
-              {(floor.devices || []).length > 0 && (
-                <div className="pt-3 border-t border-gray-200">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Device Types:</h4>
-                  <div className="space-y-1">
+              {/* {(floor.devices || []).length > 0 && ( */}
+                {/* <div className="pt-3 border-t border-gray-200"> */}
+                  {/* <h4 className="text-sm font-medium text-gray-700 mb-2">Device Types:</h4> */}
+                  {/* <div className="space-y-1">
                     {Object.entries(
                       (floor.devices || []).reduce((acc, device) => {
                         const deviceInfo = getDeviceById(device.deviceId);
@@ -513,9 +513,9 @@ const ThreeVisualizationStep: React.FC = () => {
                         <span className="font-medium text-gray-800">{count}</span>
                       </div>
                     ))}
-                  </div>
-                </div>
-              )}
+                  </div> */}
+                {/* </div> */}
+              {/* )} */}
             </div>
           </motion.div>
         ))}

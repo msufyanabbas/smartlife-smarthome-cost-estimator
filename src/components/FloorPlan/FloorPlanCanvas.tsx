@@ -1208,7 +1208,7 @@ const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({ floor }) => {
         ))}
 
         {/* Empty State */}
-        {(!floor.devices || floor.devices.length === 0) && !isOver && (
+        {/* {(!floor.devices || floor.devices.length === 0) && !isOver && (
           <div className="absolute inset-0 flex items-center justify-center text-gray-500 pointer-events-none">
             <div className="text-center">
               <div className="text-4xl mb-4">🏠</div>
@@ -1218,7 +1218,7 @@ const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({ floor }) => {
               </p>
             </div>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Canvas Statistics */}

@@ -462,7 +462,7 @@ const FloorUploadStep: React.FC = () => {
             )}
 
             {/* Upload Requirements */}
-            <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-200">
+            {/* <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-200">
               <h4 className={`font-medium text-blue-800 mb-2 ${
                 isRTL ? 'font-arabic text-right' : ''
               }`}>
@@ -477,7 +477,7 @@ const FloorUploadStep: React.FC = () => {
                 <li>• Floor plans should be clear and properly scaled</li>
                 <li>• Click on a floor number to select it for upload</li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ const Header: React.FC = () => {
                     className="object-contain"
                     priority
                   /> : <Image 
-                  src="/smart-life.ico"
+                  src="/smart-life.png"
                     alt="Smart Life Company Logo"
                     fill
                     className='object-contain'

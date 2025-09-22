@@ -106,7 +106,7 @@ const DevicePlacementStep: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col" style={{ height: 'calc(100vh - 200px)', minHeight: '600px', maxHeight: '800px' }}>
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col" style={{ height: 'calc(100vh - 200px)', minHeight: '600px', maxHeight: '670px' }}>
                 {/* Device Library Header - Fixed */}
                 <div className="px-6 py-4 bg-gradient-to-r bg-primary-800 to-accent-500 text-white flex-shrink-0">
                   <div className="flex items-center justify-between">
@@ -241,7 +241,7 @@ const DevicePlacementStep: React.FC = () => {
               </div>
 
               {/* Device Placement Tips */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -269,7 +269,7 @@ const DevicePlacementStep: React.FC = () => {
                     </ul>
                   </div>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         ) : (
@@ -285,102 +285,7 @@ const DevicePlacementStep: React.FC = () => {
       </DndProvider>
 
       {/* Device Summary */}
-      <AnimatePresence>
-        {hasPlacedDevices && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ delay: 0.3 }}
-            className="mt-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <FaShoppingCart className="text-accent-300 text-xl" />
-                <h3 className="text-xl font-semibold text-white">
-                  {inputMethod === 'dwg' ? 'Placed Devices Summary' : 'Selected Devices Summary'}
-                </h3>
-              </div>
-              <div className="text-accent-200 font-medium">
-                {inputMethod === 'dwg' 
-                  ? `${totalPlacedDevices} devices across ${sortedFloorPlans.length} floor${sortedFloorPlans.length > 1 ? 's' : ''}`
-                  : `${selectedDevices.length} devices selected`
-                }
-              </div>
-            </div>
-
-            {inputMethod === 'dwg' ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {sortedFloorPlans.map(floor => (
-                  (floor.devices || []).length > 0 && (
-                    <div key={floor.id} className="bg-white/10 rounded-xl p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-white flex items-center gap-2">
-                          <FaLayerGroup className="text-accent-300" />
-                          {floor.name}
-                        </h4>
-                        <span className="text-accent-200 text-sm font-medium">
-                          Floor {floor.floorNumber}
-                        </span>
-                      </div>
-                      <p className="text-accent-200 text-sm">
-                        {(floor.devices || []).length} device{(floor.devices || []).length !== 1 ? 's' : ''} placed
-                      </p>
-                      {floor.dwgFile && (
-                        <p className="text-accent-300 text-xs mt-1 truncate">
-                          📁 {floor.dwgFile.name}
-                        </p>
-                      )}
-                    </div>
-                  )
-                ))}
-                
-                {/* Quick Stats */}
-                <div className="bg-gradient-to-r from-primary-500/20 to-accent-500/20 rounded-xl p-4 border border-accent-400/30">
-                  <h4 className="font-medium text-white mb-2">Total Overview</h4>
-                  <div className="space-y-1 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-accent-200">Floors:</span>
-                      <span className="text-white font-medium">{sortedFloorPlans.length}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-accent-200">Total Devices:</span>
-                      <span className="text-white font-medium">{totalPlacedDevices}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-accent-200">Avg per Floor:</span>
-                      <span className="text-white font-medium">
-                        {sortedFloorPlans.length > 0 ? Math.round(totalPlacedDevices / sortedFloorPlans.length) : 0}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {selectedDevices.slice(0, 6).map(device => (
-                  <div key={device.id} className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
-                    <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                      <FaCube className="text-accent-300" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-white text-sm">{device.name}</p>
-                      <p className="text-accent-200 text-xs">SAR {device.price.toLocaleString()}</p>
-                    </div>
-                  </div>
-                ))}
-                {selectedDevices.length > 6 && (
-                  <div className="flex items-center justify-center bg-white/10 rounded-xl p-4">
-                    <span className="text-white text-sm">
-                      +{selectedDevices.length - 6} more devices
-                    </span>
-                  </div>
-                )}
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+     
 
       {/* Navigation */}
       <div className="flex justify-between mt-8">
@@ -416,14 +321,14 @@ const DevicePlacementStep: React.FC = () => {
           transition={{ delay: 0.5 }}
           className="mt-6 text-center"
         >
-          <div className="bg-yellow-500/20 backdrop-blur-md rounded-xl p-4 border border-yellow-400/30">
+          {/* <div className="bg-yellow-500/20 backdrop-blur-md rounded-xl p-4 border border-yellow-400/30">
             <p className="text-yellow-200 text-sm">
               {inputMethod === 'dwg' 
                 ? 'Start by dragging devices from the library onto your floor plan to continue'
                 : 'Select at least one smart device to proceed to cost calculation'
               }
             </p>
-          </div>
+          </div> */}
         </motion.div>
       )}
     </div>
