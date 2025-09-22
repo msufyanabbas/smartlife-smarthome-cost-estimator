@@ -40,6 +40,7 @@ export interface FloorPlan {
   name: string;
   dwgFile?: File;
   dwgData?: string;
+  cadData?: any;
   devices: PlacedDevice[];
   dimensions: {
     width: number;
