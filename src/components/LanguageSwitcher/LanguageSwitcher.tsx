@@ -60,7 +60,7 @@ const LanguageSwitcher: React.FC = () => {
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               className={`absolute top-full mt-2 min-w-[180px] bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 ${
-                isRTL ? 'left-0' : 'right-0'
+                isRTL ? 'left-0.5' : 'right-0'
               }`}
               dir="ltr"
             >

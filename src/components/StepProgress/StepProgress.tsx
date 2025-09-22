@@ -122,7 +122,7 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
 
   return (
     <div className="w-full bg-white rounded-2xl shadow-xl p-6 mb-8">
-      <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`flex items-center justify-between mb-6 ${isRTL ? '' : ''}`}>
         <h3 className="text-xl font-semibold text-gray-800">{t('stepProgress.yourProgress')}</h3>
         <div className="text-sm text-gray-500">
           {t('stepProgress.stepCount').replace('{{current}}', String(currentStepIndex + 1)).replace('{{total}}', String(stepConfig.length))}
@@ -133,7 +133,7 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
       <div className="relative mb-8">
         <div className="absolute top-1/2 left-0 right-0 h-2 bg-gray-200 rounded-full transform -translate-y-1/2" />
         <motion.div 
-          className={`absolute top-1/2 h-2 bg-gradient-to-r from-primary-600 to-accent-500 rounded-full transform -translate-y-1/2 transition-all duration-500 ${isRTL ? 'right-0' : 'left-0'}`}
+          className={`absolute top-1/2 h-2 bg-gradient-to-r from-primary-600 to-accent-500 rounded-full transform -translate-y-1/2 transition-all duration-500 ${isRTL ? 'flex-row-reverse' : 'left-0'}`}
           initial={{ width: 0 }}
           animate={{ width: `${progressPercentage}%` }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -219,7 +219,7 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center gap-3 ${isRTL ? '' : ''}`}>
           <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-accent-500 rounded-lg flex items-center justify-center">
             {React.createElement(stepConfig[currentStepIndex]?.icon || FaHome, {
               className: "text-white text-sm"

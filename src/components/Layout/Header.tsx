@@ -26,13 +26,20 @@ const Header: React.FC = () => {
               <div className="flex items-center gap-4">
                 {/* Company Logo Image */}
                 <div className="relative w-48 h-48 lg:w-48 lg:h-48">
-                  <Image
+                  {!isRTL ? <Image
                     src="/smart-life-logo-white-text.png"
                     alt="SmartLife Company Logo"
                     fill
                     className="object-contain"
                     priority
-                  />
+                  /> : <Image 
+                  src="/smart-life.ico"
+                    alt="Smart Life Company Logo"
+                    fill
+                    className='object-contain'
+                    priority
+                    />
+                  }
                 </div>
               </div>
             </div>
@@ -60,7 +67,7 @@ const Header: React.FC = () => {
               <div className={`flex items-center gap-2 text-white ${
                 isRTL ? 'flex-row-reverse' : ''
               }`}>
-                <FaRocket className="text-accent-300" />
+                <FaRocket />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>
                   {t('header.features.aiPowered')}
                 </span>
@@ -70,7 +77,7 @@ const Header: React.FC = () => {
               <div className={`flex items-center gap-2 text-white ${
                 isRTL ? 'flex-row-reverse' : ''
               }`}>
-                <FaCog className="text-accent-300 " />
+                <FaCog  />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>
                   {t('header.features.professionalInstallation')}
                 </span>
@@ -80,7 +87,7 @@ const Header: React.FC = () => {
               <div className={`flex items-center gap-2 text-white ${
                 isRTL ? 'flex-row-reverse' : ''
               }`}>
-                <FaHome className="text-accent-300" />
+                <FaHome  />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>
                   {t('header.features.warranty')}
                 </span>
