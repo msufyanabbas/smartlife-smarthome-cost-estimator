@@ -46,6 +46,7 @@ export interface FloorPlan {
     height: number;
   };
   scale: number;
+  previewUrl: any;
 }
 
 export interface PlacedDevice {

@@ -3,6 +3,7 @@ import React from 'react';
 import { FaCheck, FaHome, FaUpload, FaCube, FaEye, FaCalculator, FaUser, FaFileInvoice, FaEdit } from 'react-icons/fa';
 import { EstimationStep } from '@/types';
 import { useEstimationStore } from '@/store/estimationStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
 
 interface StepProgressProps {
@@ -12,20 +13,21 @@ interface StepProgressProps {
 
 const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps }) => {
   const { inputMethod } = useEstimationStore();
+  const { t, isRTL } = useLanguage();
 
   // Define steps based on input method
   const getStepConfig = () => {
     const baseSteps = [
       {
         key: 'input-method' as EstimationStep,
-        title: 'Input Method',
-        description: 'Choose approach',
+        title: t('stepProgress.inputMethod.title'),
+        description: t('stepProgress.inputMethod.description'),
         icon: FaHome,
       },
       {
         key: 'property-details' as EstimationStep,
-        title: 'Property Details',
-        description: 'Basic information',
+        title: t('stepProgress.propertyDetails.title'),
+        description: t('stepProgress.propertyDetails.description'),
         icon: FaHome,
       },
     ];
@@ -35,38 +37,38 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
         ...baseSteps,
         {
           key: 'floor-upload' as EstimationStep,
-          title: 'Floor Plans',
-          description: 'Upload drawings',
+          title: t('stepProgress.floorUpload.title'),
+          description: t('stepProgress.floorUpload.description'),
           icon: FaUpload,
         },
         {
           key: 'device-placement' as EstimationStep,
-          title: 'Device Placement',
-          description: 'Position devices',
+          title: t('stepProgress.devicePlacement.titleDwg'),
+          description: t('stepProgress.devicePlacement.descriptionDwg'),
           icon: FaCube,
         },
         {
           key: '3d-visualization' as EstimationStep,
-          title: '3D Preview',
-          description: 'View design',
+          title: t('stepProgress.3dVisualization.title'),
+          description: t('stepProgress.3dVisualization.description'),
           icon: FaEye,
         },
         {
           key: 'cost-calculation' as EstimationStep,
-          title: 'Cost Estimate',
-          description: 'Review pricing',
+          title: t('stepProgress.costCalculation.title'),
+          description: t('stepProgress.costCalculation.description'),
           icon: FaCalculator,
         },
         {
           key: 'contact-info' as EstimationStep,
-          title: 'Contact Info',
-          description: 'Your details',
+          title: t('stepProgress.contactInfo.title'),
+          description: t('stepProgress.contactInfo.description'),
           icon: FaUser,
         },
         {
           key: 'quote-generation' as EstimationStep,
-          title: 'Quote Ready',
-          description: 'Get quote',
+          title: t('stepProgress.quoteGeneration.title'),
+          description: t('stepProgress.quoteGeneration.description'),
           icon: FaFileInvoice,
         },
       ];
@@ -75,26 +77,26 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
         ...baseSteps,
         {
           key: 'device-placement' as EstimationStep,
-          title: 'Device Selection',
-          description: 'Choose devices',
+          title: t('stepProgress.devicePlacement.title'),
+          description: t('stepProgress.devicePlacement.description'),
           icon: FaEdit,
         },
         {
           key: 'cost-calculation' as EstimationStep,
-          title: 'Cost Estimate',
-          description: 'Review pricing',
+          title: t('stepProgress.costCalculation.title'),
+          description: t('stepProgress.costCalculation.description'),
           icon: FaCalculator,
         },
         {
           key: 'contact-info' as EstimationStep,
-          title: 'Contact Info',
-          description: 'Your details',
+          title: t('stepProgress.contactInfo.title'),
+          description: t('stepProgress.contactInfo.description'),
           icon: FaUser,
         },
         {
           key: 'quote-generation' as EstimationStep,
-          title: 'Quote Ready',
-          description: 'Get quote',
+          title: t('stepProgress.quoteGeneration.title'),
+          description: t('stepProgress.quoteGeneration.description'),
           icon: FaFileInvoice,
         },
       ];
@@ -120,10 +122,10 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
 
   return (
     <div className="w-full bg-white rounded-2xl shadow-xl p-6 mb-8">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-gray-800">Your Progress</h3>
+      <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <h3 className="text-xl font-semibold text-gray-800">{t('stepProgress.yourProgress')}</h3>
         <div className="text-sm text-gray-500">
-          Step {currentStepIndex + 1} of {stepConfig.length}
+          {t('stepProgress.stepCount').replace('{{current}}', String(currentStepIndex + 1)).replace('{{total}}', String(stepConfig.length))}
         </div>
       </div>
 
@@ -131,7 +133,7 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
       <div className="relative mb-8">
         <div className="absolute top-1/2 left-0 right-0 h-2 bg-gray-200 rounded-full transform -translate-y-1/2" />
         <motion.div 
-          className="absolute top-1/2 left-0 h-2 bg-gradient-to-r from-primary-600 to-accent-500 rounded-full transform -translate-y-1/2 transition-all duration-500"
+          className={`absolute top-1/2 h-2 bg-gradient-to-r from-primary-600 to-accent-500 rounded-full transform -translate-y-1/2 transition-all duration-500 ${isRTL ? 'right-0' : 'left-0'}`}
           initial={{ width: 0 }}
           animate={{ width: `${progressPercentage}%` }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -217,13 +219,13 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className="flex items-center gap-3">
+        <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-accent-500 rounded-lg flex items-center justify-center">
             {React.createElement(stepConfig[currentStepIndex]?.icon || FaHome, {
               className: "text-white text-sm"
             })}
           </div>
-          <div>
+          <div className={isRTL ? 'text-right' : ''}>
             <p className="font-medium text-gray-800">
               {stepConfig[currentStepIndex]?.title}
             </p>
@@ -236,9 +238,9 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, completedSteps
 
       {/* Input Method Badge */}
       <div className="mt-4 flex justify-center">
-        <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">
+        <div className={`inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs ${isRTL ? 'flex-row-reverse' : ''}`}>
           <span className="w-2 h-2 bg-accent-500 rounded-full"></span>
-          {inputMethod === 'dwg' ? 'Professional Mode' : 'Quick Mode'}
+          {inputMethod === 'dwg' ? t('stepProgress.professionalMode') : t('stepProgress.quickMode')}
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useEstimationStore } from '@/store/estimationStore';
 import { motion } from 'framer-motion';
 import { CostBreakdown, DeviceCost } from '@/types';
 import { getDeviceById } from '@/data/devices';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const CostCalculationStep: React.FC = () => {
   const { 
@@ -17,6 +18,7 @@ const CostCalculationStep: React.FC = () => {
     inputMethod 
   } = useEstimationStore();
 
+  const { t } = useLanguage();
   const [isCalculating, setIsCalculating] = useState(false);
   const [deviceQuantities, setDeviceQuantities] = useState<Record<string, number>>({});
 
@@ -53,7 +55,7 @@ const CostCalculationStep: React.FC = () => {
 
           return {
             deviceId,
-            name: device?.name || 'Unknown Device',
+            name: device?.name || t('costCalculation.unknownDevice'),
             quantity,
             unitPrice,
             totalPrice
@@ -152,7 +154,7 @@ const CostCalculationStep: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl lg:text-5xl font-bold text-white mb-8"
           >
-            Calculating Your Investment
+            {t('steps.costCalculation.calculating')}
           </motion.h2>
           
           <motion.div
@@ -167,7 +169,7 @@ const CostCalculationStep: React.FC = () => {
               </div>
             </div>
             
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Creating Your Personalized Quote</h3>
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">{t('costCalculation.creatingQuote')}</h3>
             
             <div className="space-y-3 text-gray-600">
               <motion.p
@@ -175,21 +177,21 @@ const CostCalculationStep: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                Analyzing device requirements and placement...
+                {t('steps.costCalculation.processingSteps.0')}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.0 }}
               >
-                Calculating installation costs and requirements...
+                {t('steps.costCalculation.processingSteps.1')}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
               >
-                Optimizing your smart home package...
+                {t('steps.costCalculation.processingSteps.2')}
               </motion.p>
             </div>
           </motion.div>
@@ -203,12 +205,12 @@ const CostCalculationStep: React.FC = () => {
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="text-center">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8">
-            Unable to Calculate Costs
+            {t('steps.costCalculation.unableToCalculate')}
           </h2>
           <div className="bg-white rounded-3xl shadow-2xl p-12">
-            <p className="text-gray-600 mb-6">There was an issue calculating your costs. Please try again.</p>
+            <p className="text-gray-600 mb-6">{t('steps.costCalculation.calculationError')}</p>
             <button onClick={handleRecalculate} className="btn-primary">
-              Recalculate
+              {t('steps.costCalculation.recalculate')}
             </button>
           </div>
         </div>
@@ -227,7 +229,7 @@ const CostCalculationStep: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl lg:text-5xl font-bold text-white mb-4"
         >
-          Your Smart Home Investment
+          {t('steps.costCalculation.title')}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
@@ -235,7 +237,7 @@ const CostCalculationStep: React.FC = () => {
           transition={{ delay: 0.1 }}
           className="text-xl text-white/80 max-w-3xl mx-auto"
         >
-          Comprehensive breakdown including devices, installation, and warranty
+          {t('steps.costCalculation.subtitle')}
         </motion.p>
       </div>
 
@@ -251,7 +253,7 @@ const CostCalculationStep: React.FC = () => {
             <div className="bg-gradient-to-r from-primary-900 to-accent-500 p-6 text-white">
               <div className="flex items-center gap-3">
                 <FaCalculator className="text-2xl" />
-                <h3 className="text-xl font-semibold">Cost Breakdown</h3>
+                <h3 className="text-xl font-semibold">{t('steps.costCalculation.costBreakdown')}</h3>
               </div>
             </div>
 
@@ -263,9 +265,9 @@ const CostCalculationStep: React.FC = () => {
                     <FaTools className="text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Base Installation Package</h4>
+                    <h4 className="font-semibold text-gray-800">{t('steps.costCalculation.baseInstallation')}</h4>
                     <p className="text-sm text-gray-600">
-                      {propertyDetails.type?.charAt(0).toUpperCase()}{propertyDetails.type?.slice(1)} - {propertyDetails.size?.toLocaleString()} sq ft
+                      {t(`steps.propertyDetails.types.${propertyDetails.type}`)} - {propertyDetails.size?.toLocaleString()} {t('costCalculation.sqft')}
                     </p>
                   </div>
                 </div>
@@ -278,9 +280,9 @@ const CostCalculationStep: React.FC = () => {
             {/* Device Costs */}
             <div className="p-6 border-b border-gray-200">
               <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <span>Smart Devices</span>
+                <span>{t('steps.costCalculation.smartDevices')}</span>
                 <span className="text-sm bg-accent-100 text-accent-700 px-2 py-1 rounded-full">
-                  {totalDevices} items
+                  {totalDevices} {t('steps.costCalculation.items')}
                 </span>
               </h4>
               <div className="space-y-3 max-h-64 overflow-y-auto">
@@ -327,8 +329,8 @@ const CostCalculationStep: React.FC = () => {
                     <FaTruck className="text-orange-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Professional Installation & Setup</h4>
-                    <p className="text-sm text-gray-600">Certified technicians, testing & configuration</p>
+                    <h4 className="font-semibold text-gray-800">{t('steps.costCalculation.professionalInstallation')}</h4>
+                    <p className="text-sm text-gray-600">{t('costCalculation.installationDescription')}</p>
                   </div>
                 </div>
                 <div className="text-xl font-bold text-gray-800">
@@ -345,8 +347,8 @@ const CostCalculationStep: React.FC = () => {
                     <span className="text-green-600 font-bold text-sm">VAT</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Value Added Tax (15%)</h4>
-                    <p className="text-sm text-gray-600">As per Saudi Arabia tax regulations</p>
+                    <h4 className="font-semibold text-gray-800">{t('steps.costCalculation.vat')}</h4>
+                    <p className="text-sm text-gray-600">{t('costCalculation.taxDescription')}</p>
                   </div>
                 </div>
                 <div className="text-xl font-bold text-gray-800">
@@ -359,8 +361,8 @@ const CostCalculationStep: React.FC = () => {
             <div className="p-6 bg-gradient-to-r from-accent-50 to-primary-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-2xl font-bold text-gray-800">Total Investment</h4>
-                  <p className="text-sm text-gray-600">All-inclusive smart home package</p>
+                  <h4 className="text-2xl font-bold text-gray-800">{t('steps.costCalculation.totalInvestment')}</h4>
+                  <p className="text-sm text-gray-600">{t('costCalculation.allInclusive')}</p>
                 </div>
                 <div className="text-4xl font-bold text-accent-600">
                   SAR {costBreakdown.total.toLocaleString()}
@@ -381,24 +383,24 @@ const CostCalculationStep: React.FC = () => {
           >
             <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
               <FaCheckCircle className="text-green-500" />
-              Project Summary
+              {t('steps.costCalculation.projectSummary')}
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-600">Property Type:</span>
-                <span className="font-medium text-gray-800 capitalize">{propertyDetails.type}</span>
+                <span className="text-gray-600">{t('steps.costCalculation.propertyInfo.propertyType')}</span>
+                <span className="font-medium text-gray-800 capitalize">{t(`steps.propertyDetails.types.${propertyDetails.type}`)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Total Area:</span>
-                <span className="font-medium text-gray-800">{propertyDetails.size?.toLocaleString()} sq ft</span>
+                <span className="text-gray-600">{t('steps.costCalculation.propertyInfo.totalArea')}</span>
+                <span className="font-medium text-gray-800">{propertyDetails.size?.toLocaleString()} {t('costCalculation.sqft')}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Smart Devices:</span>
-                <span className="font-medium text-gray-800">{totalDevices} items</span>
+                <span className="text-gray-600">{t('steps.costCalculation.propertyInfo.smartDevices')}</span>
+                <span className="font-medium text-gray-800">{totalDevices} {t('steps.costCalculation.items')}</span>
               </div>
               {inputMethod === 'dwg' && (
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Floor Plans:</span>
+                  <span className="text-gray-600">{t('steps.costCalculation.propertyInfo.floorPlans')}</span>
                   <span className="font-medium text-gray-800">{floorPlans.length} floors</span>
                 </div>
               )}
@@ -414,63 +416,39 @@ const CostCalculationStep: React.FC = () => {
           >
             <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
               <FaShieldAlt className="text-accent-500" />
-              What's Included
+              {t('steps.costCalculation.whatsIncluded')}
             </h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-accent-500 rounded-full mt-2"></div>
                 <div>
-                  <p className="font-medium text-gray-800">Professional Installation</p>
-                  <p className="text-gray-600">Certified IoT technicians</p>
+                  <p className="font-medium text-gray-800">{t('steps.costCalculation.includedServices.0')}</p>
+                  <p className="text-gray-600">{t('steps.costCalculation.serviceDescriptions.0')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-accent-500 rounded-full mt-2"></div>
                 <div>
-                  <p className="font-medium text-gray-800">Complete Setup & Configuration</p>
-                  <p className="text-gray-600">Ready-to-use smart home system</p>
+                  <p className="font-medium text-gray-800">{t('steps.costCalculation.includedServices.1')}</p>
+                  <p className="text-gray-600">{t('steps.costCalculation.serviceDescriptions.1')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-accent-500 rounded-full mt-2"></div>
                 <div>
-                  <p className="font-medium text-gray-800">2-Year Comprehensive Warranty</p>
-                  <p className="text-gray-600">All components and labor covered</p>
+                  <p className="font-medium text-gray-800">{t('steps.costCalculation.includedServices.2')}</p>
+                  <p className="text-gray-600">{t('steps.costCalculation.serviceDescriptions.2')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-accent-500 rounded-full mt-2"></div>
                 <div>
-                  <p className="font-medium text-gray-800">24/7 Technical Support</p>
-                  <p className="text-gray-600">Ongoing assistance and maintenance</p>
+                  <p className="font-medium text-gray-800">{t('steps.costCalculation.includedServices.3')}</p>
+                  <p className="text-gray-600">{t('steps.costCalculation.serviceDescriptions.3')}</p>
                 </div>
               </div>
             </div>
           </motion.div>
-
-          {/* Financing Options */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-6 border border-accent-200"
-          >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Flexible Payment Options</h3>
-            <div className="space-y-3">
-              <div className="bg-white rounded-xl p-4">
-                <p className="font-medium text-gray-800 mb-1">Pay in Full</p>
-                <p className="text-2xl font-bold text-accent-600">SAR {costBreakdown.total.toLocaleString()}</p>
-                <p className="text-sm text-gray-600">5% discount included</p>
-              </div>
-              <div className="bg-white rounded-xl p-4">
-                <p className="font-medium text-gray-800 mb-1">12-Month Plan</p>
-                <p className="text-xl font-bold text-primary-600">
-                  SAR {Math.round(costBreakdown.total / 12).toLocaleString()}/month
-                </p>
-                <p className="text-sm text-gray-600">0% interest financing</p>
-              </div>
-            </div>
-          </motion.div> */}
 
           {/* Action Buttons */}
           <div className="space-y-3">
@@ -479,7 +457,7 @@ const CostCalculationStep: React.FC = () => {
               className="w-full border-2 border-accent-500 text-accent-500 bg-transparent font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-accent-500 hover:text-white inline-flex items-center justify-center gap-2"
             >
               <FaEdit />
-              Recalculate Costs
+              {t('steps.costCalculation.recalculate')}
             </button>
           </div>
         </div>
@@ -492,14 +470,14 @@ const CostCalculationStep: React.FC = () => {
           className="bg-gray-100 text-gray-800 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-200 hover:border-accent-500 inline-flex items-center gap-2"
         >
           <FaArrowLeft />
-          Back
+          {t('navigation.back')}
         </button>
         
         <button
           onClick={handleNext}
           className="bg-gradient-to-r from-primary-900 to-accent-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-accent-hover hover:-translate-y-1 inline-flex items-center gap-2 text-lg"
         >
-          Continue to Contact Info
+          {t('steps.costCalculation.nextStep')}
           <FaArrowRight />
         </button>
       </div>

@@ -4,6 +4,7 @@ import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowRight, FaArrowLeft,
 import { useEstimationStore } from '@/store/estimationStore';
 import { motion } from 'framer-motion';
 import { ContactInfo } from '@/types';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ContactInfoStep: React.FC = () => {
   const { 
@@ -12,7 +13,8 @@ const ContactInfoStep: React.FC = () => {
     setCurrentStep,
     costBreakdown 
   } = useEstimationStore();
-
+  
+  const { t } = useLanguage();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,31 +22,31 @@ const ContactInfoStep: React.FC = () => {
     const newErrors: Record<string, string> = {};
 
     if (!contactInfo.firstName?.trim()) {
-      newErrors.firstName = 'First name is required';
+      newErrors.firstName = t('steps.contactInfo.validation.firstNameRequired');
     }
 
     if (!contactInfo.lastName?.trim()) {
-      newErrors.lastName = 'Last name is required';
+      newErrors.lastName = t('steps.contactInfo.validation.lastNameRequired');
     }
 
     if (!contactInfo.email?.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('steps.contactInfo.validation.emailRequired');
     } else if (!/\S+@\S+\.\S+/.test(contactInfo.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = t('steps.contactInfo.validation.emailInvalid');
     }
 
     if (!contactInfo.phone?.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = t('steps.contactInfo.validation.phoneRequired');
     } else if (!/^(\+966|0)?[5]\d{8}$/.test(contactInfo.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Please enter a valid Saudi phone number';
+      newErrors.phone = t('steps.contactInfo.validation.phoneInvalid');
     }
 
     if (!contactInfo.city?.trim()) {
-      newErrors.city = 'City is required';
+      newErrors.city = t('steps.contactInfo.validation.cityRequired');
     }
 
     if (!contactInfo.address?.trim()) {
-      newErrors.address = 'Address is required';
+      newErrors.address = t('steps.contactInfo.validation.addressRequired');
     }
 
     setErrors(newErrors);
@@ -79,23 +81,23 @@ const ContactInfoStep: React.FC = () => {
   const contactMethods = [
     {
       id: 'email',
-      name: 'Email',
+      name: t('steps.contactInfo.contactMethods.email.name'),
       icon: FaEnvelope,
-      description: 'Receive quote via email',
+      description: t('steps.contactInfo.contactMethods.email.description'),
       color: 'text-blue-600 bg-blue-100'
     },
     {
       id: 'phone',
-      name: 'Phone Call',
+      name: t('steps.contactInfo.contactMethods.phone.name'),
       icon: FaPhone,
-      description: 'Get a call from our team',
+      description: t('steps.contactInfo.contactMethods.phone.description'),
       color: 'text-green-600 bg-green-100'
     },
     {
       id: 'whatsapp',
-      name: 'WhatsApp',
+      name: t('steps.contactInfo.contactMethods.whatsapp.name'),
       icon: FaWhatsapp,
-      description: 'Chat via WhatsApp',
+      description: t('steps.contactInfo.contactMethods.whatsapp.description'),
       color: 'text-green-600 bg-green-100'
     }
   ];
@@ -104,10 +106,10 @@ const ContactInfoStep: React.FC = () => {
     <div className="max-w-4xl mx-auto px-6 py-8">
       <div className="text-center mb-12">
         <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-          Almost There! Let's Connect
+          {t('steps.contactInfo.title')}
         </h2>
         <p className="text-xl text-white/80 max-w-2xl mx-auto">
-          Provide your contact details to receive your personalized smart home quote
+          {t('steps.contactInfo.subtitle')}
         </p>
       </div>
 
@@ -120,8 +122,8 @@ const ContactInfoStep: React.FC = () => {
             className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12"
           >
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-2">Your Information</h3>
-              <p className="text-gray-600">We'll use this to create and send your personalized quote</p>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-2">{t('steps.contactInfo.yourInformation')}</h3>
+              <p className="text-gray-600">{t('contactInfo.formDescription')}</p>
             </div>
 
             <div className="space-y-6">
@@ -130,13 +132,13 @@ const ContactInfoStep: React.FC = () => {
                 <div>
                   <label className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-3">
                     <FaUser className="text-accent-500" />
-                    First Name
+                    {t('steps.contactInfo.firstName')}
                   </label>
                   <input
                     type="text"
                     value={contactInfo.firstName || ''}
                     onChange={(e) => handleInputChange('firstName', e.target.value)}
-                    placeholder="Enter your first name"
+                    placeholder={t('steps.contactInfo.placeholders.firstName')}
                     className={`form-input ${errors.firstName ? 'border-red-500' : ''}`}
                   />
                   {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
@@ -144,13 +146,13 @@ const ContactInfoStep: React.FC = () => {
 
                 <div>
                   <label className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-3">
-                    Last Name
+                    {t('steps.contactInfo.lastName')}
                   </label>
                   <input
                     type="text"
                     value={contactInfo.lastName || ''}
                     onChange={(e) => handleInputChange('lastName', e.target.value)}
-                    placeholder="Enter your last name"
+                    placeholder={t('steps.contactInfo.placeholders.lastName')}
                     className={`form-input ${errors.lastName ? 'border-red-500' : ''}`}
                   />
                   {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
@@ -161,13 +163,13 @@ const ContactInfoStep: React.FC = () => {
               <div>
                 <label className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-3">
                   <FaEnvelope className="text-accent-500" />
-                  Email Address
+                  {t('steps.contactInfo.email')}
                 </label>
                 <input
                   type="email"
                   value={contactInfo.email || ''}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  placeholder="your.email@example.com"
+                  placeholder={t('steps.contactInfo.placeholders.email')}
                   className={`form-input ${errors.email ? 'border-red-500' : ''}`}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -177,17 +179,17 @@ const ContactInfoStep: React.FC = () => {
               <div>
                 <label className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-3">
                   <FaPhone className="text-accent-500" />
-                  Phone Number
+                  {t('steps.contactInfo.phone')}
                 </label>
                 <input
                   type="tel"
                   value={contactInfo.phone || ''}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder="+966 5X XXX XXXX"
+                  placeholder={t('steps.contactInfo.placeholders.phone')}
                   className={`form-input ${errors.phone ? 'border-red-500' : ''}`}
                 />
                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-                <p className="text-gray-500 text-sm mt-1">Saudi mobile number required</p>
+                <p className="text-gray-500 text-sm mt-1">{t('steps.contactInfo.phoneHint')}</p>
               </div>
 
               {/* Location */}
@@ -195,23 +197,23 @@ const ContactInfoStep: React.FC = () => {
                 <div>
                   <label className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-3">
                     <FaMapMarkerAlt className="text-accent-500" />
-                    City
+                    {t('steps.contactInfo.city')}
                   </label>
                   <select
                     value={contactInfo.city || ''}
                     onChange={(e) => handleInputChange('city', e.target.value)}
                     className={`form-select ${errors.city ? 'border-red-500' : ''}`}
                   >
-                    <option value="">Select your city</option>
-                    <option value="riyadh">Riyadh</option>
-                    <option value="jeddah">Jeddah</option>
-                    <option value="dammam">Dammam</option>
-                    <option value="mecca">Mecca</option>
-                    <option value="medina">Medina</option>
-                    <option value="khobar">Khobar</option>
-                    <option value="tabuk">Tabuk</option>
-                    <option value="abha">Abha</option>
-                    <option value="other">Other</option>
+                    <option value="">{t('steps.contactInfo.cities.selectCity')}</option>
+                    <option value="riyadh">{t('steps.contactInfo.cities.riyadh')}</option>
+                    <option value="jeddah">{t('steps.contactInfo.cities.jeddah')}</option>
+                    <option value="dammam">{t('steps.contactInfo.cities.dammam')}</option>
+                    <option value="mecca">{t('steps.contactInfo.cities.mecca')}</option>
+                    <option value="medina">{t('steps.contactInfo.cities.medina')}</option>
+                    <option value="khobar">{t('steps.contactInfo.cities.khobar')}</option>
+                    <option value="tabuk">{t('steps.contactInfo.cities.tabuk')}</option>
+                    <option value="abha">{t('steps.contactInfo.cities.abha')}</option>
+                    <option value="other">{t('steps.contactInfo.cities.other')}</option>
                   </select>
                   {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
                 </div>
@@ -220,23 +222,23 @@ const ContactInfoStep: React.FC = () => {
               {/* Address */}
               <div>
                 <label className="block text-lg font-semibold text-gray-800 mb-3">
-                  Property Address
+                  {t('steps.contactInfo.address')}
                 </label>
                 <textarea
                   value={contactInfo.address || ''}
                   onChange={(e) => handleInputChange('address', e.target.value)}
-                  placeholder="Enter your property address"
+                  placeholder={t('steps.contactInfo.placeholders.address')}
                   rows={3}
                   className={`form-input resize-none ${errors.address ? 'border-red-500' : ''}`}
                 />
                 {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
-                <p className="text-gray-500 text-sm mt-1">Needed for installation scheduling</p>
+                <p className="text-gray-500 text-sm mt-1">{t('steps.contactInfo.addressHint')}</p>
               </div>
 
               {/* Preferred Contact Method */}
               <div>
                 <label className="block text-lg font-semibold text-gray-800 mb-4">
-                  How would you like to receive your quote?
+                  {t('steps.contactInfo.preferredContact')}
                 </label>
                 <div className="grid md:grid-cols-3 gap-4">
                   {contactMethods.map(method => {
@@ -280,24 +282,24 @@ const ContactInfoStep: React.FC = () => {
             transition={{ delay: 0.1 }}
             className="bg-white rounded-2xl p-6 shadow-xl"
           >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Quote Summary</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.contactInfo.quoteSummary')}</h3>
             {costBreakdown && (
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Smart Devices:</span>
-                  <span className="font-medium text-gray-800">{costBreakdown.devices.length} items</span>
+                  <span className="text-gray-600">{t('steps.contactInfo.quoteSummaryItems.smartDevices')}</span>
+                  <span className="font-medium text-gray-800">{costBreakdown.devices.length} {t('steps.contactInfo.quoteSummaryValues.items')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Installation:</span>
-                  <span className="font-medium text-gray-800">Professional</span>
+                  <span className="text-gray-600">{t('steps.contactInfo.quoteSummaryItems.installation')}</span>
+                  <span className="font-medium text-gray-800">{t('steps.contactInfo.quoteSummaryValues.professional')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Warranty:</span>
-                  <span className="font-medium text-gray-800">2 Years</span>
+                  <span className="text-gray-600">{t('steps.contactInfo.quoteSummaryItems.warranty')}</span>
+                  <span className="font-medium text-gray-800">{t('steps.contactInfo.quoteSummaryValues.twoYears')}</span>
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between">
-                    <span className="font-semibold text-gray-800">Total Investment:</span>
+                    <span className="font-semibold text-gray-800">{t('steps.contactInfo.quoteSummaryItems.totalInvestment')}</span>
                     <span className="font-bold text-xl text-accent-600">
                       SAR {costBreakdown.total.toLocaleString()}
                     </span>
@@ -314,12 +316,12 @@ const ContactInfoStep: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="bg-blue-50 rounded-2xl p-6 border border-blue-200"
           >
-            <h3 className="text-sm font-semibold text-blue-800 mb-3">Your Privacy Matters</h3>
+            <h3 className="text-sm font-semibold text-blue-800 mb-3">{t('steps.contactInfo.privacy.title')}</h3>
             <div className="text-xs text-blue-700 space-y-2">
-              <p>• Your information is encrypted and secure</p>
-              <p>• Used only for quote generation and service</p>
-              <p>• Never shared with third parties</p>
-              <p>• You can request deletion anytime</p>
+              <p>• {t('steps.contactInfo.privacy.items.0')}</p>
+              <p>• {t('steps.contactInfo.privacy.items.1')}</p>
+              <p>• {t('steps.contactInfo.privacy.items.2')}</p>
+              <p>• {t('steps.contactInfo.privacy.items.3')}</p>
             </div>
           </motion.div>
 
@@ -330,12 +332,12 @@ const ContactInfoStep: React.FC = () => {
             transition={{ delay: 0.3 }}
             className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-6 border border-accent-200"
           >
-            <h3 className="text-sm font-semibold text-gray-800 mb-3">What Happens Next?</h3>
+            <h3 className="text-sm font-semibold text-gray-800 mb-3">{t('steps.contactInfo.nextSteps.title')}</h3>
             <div className="text-xs text-gray-700 space-y-2">
-              <p>1. Receive your detailed quote instantly</p>
-              <p>2. Our team will contact you within 24hrs</p>
-              <p>3. Schedule a free consultation</p>
-              <p>4. Professional installation begins</p>
+              <p>1. {t('steps.contactInfo.nextSteps.items.0')}</p>
+              <p>2. {t('steps.contactInfo.nextSteps.items.1')}</p>
+              <p>3. {t('steps.contactInfo.nextSteps.items.2')}</p>
+              <p>4. {t('steps.contactInfo.nextSteps.items.3')}</p>
             </div>
           </motion.div>
         </div>
@@ -348,7 +350,7 @@ const ContactInfoStep: React.FC = () => {
           className="btn-secondary inline-flex items-center gap-2"
         >
           <FaArrowLeft />
-          Back to Cost Breakdown
+          {t('steps.contactInfo.backStep')}
         </button>
         
         <button
@@ -359,11 +361,11 @@ const ContactInfoStep: React.FC = () => {
           {isSubmitting ? (
             <>
               <div className="spinner" />
-              Generating Quote...
+              {t('steps.contactInfo.generating')}
             </>
           ) : (
             <>
-              Generate My Quote
+              {t('steps.contactInfo.generateQuote')}
               <FaArrowRight />
             </>
           )}

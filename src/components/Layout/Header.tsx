@@ -18,10 +18,10 @@ const Header: React.FC = () => {
         <LanguageSwitcher />
       </div>
       
-      <div className="relative z-10 container mx-auto px-6 py-16">
+      <div className="relative z-10 container mx-auto px-6">
         <div className="text-center">
           {/* Company Logo */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center">
             <div>
               <div className="flex items-center gap-4">
                 {/* Company Logo Image */}
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
           
           {/* Subtitle */}
           <p className={`text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto mb-8 font-light leading-relaxed ${
-            isRTL ? 'font-arabic' : ''
+            isRTL ? 'font-arabic text-right' : 'text-left'
           }`}>
             {t('header.subtitle')}
           </p>

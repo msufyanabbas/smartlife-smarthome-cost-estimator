@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Home: React.FC = () => {
   const { currentStep, inputMethod } = useEstimationStore();
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   // Define step order based on input method
   const stepOrder: EstimationStep[] = useMemo(() => {
@@ -75,9 +75,18 @@ const Home: React.FC = () => {
   };
 
   const pageVariants = {
-    initial: { opacity: 0, x: 20 },
-    in: { opacity: 1, x: 0 },
-    out: { opacity: 0, x: -20 }
+    initial: { 
+      opacity: 0, 
+      x: isRTL ? -20 : 20 
+    },
+    in: { 
+      opacity: 1, 
+      x: 0 
+    },
+    out: { 
+      opacity: 0, 
+      x: isRTL ? 20 : -20 
+    }
   };
 
   const pageTransition = {

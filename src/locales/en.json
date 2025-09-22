@@ -1,4 +1,8 @@
 {
+  "layout": {
+    "title": "SmartLife - Smart Home Cost Estimator",
+    "description": "Transform your home into a smart sanctuary with our comprehensive IoT solutions"
+  },
   "header": {
     "title": "Smart Home Cost Estimator",
     "subtitle": "Transform your home into a smart sanctuary with our comprehensive IoT solutions",
@@ -113,7 +117,29 @@
     }
   },
   "steps": {
+     "floorUpload": {
+      "title": "Upload Your Floor Plans",
+      "subtitle": "Upload DWG files for each floor. We'll process them for precise device placement.",
+      "floorsToUpload": "Floors to Upload",
+      "uploadProgress": "Upload Progress",
+      "uploadFloor": "Upload Floor",
+      "dragDropText": "Drag and drop your DWG file or click to browse",
+      "dropzoneText": "Choose DWG file or drag it here",
+      "dropzoneActive": "Drop your file here...",
+      "dropzoneSupport": "Supports .dwg files up to 50MB",
+      "uploadedFiles": "Uploaded Files",
+      "requirements": {
+        "title": "File Requirements",
+        "items": "AutoCAD DWG format preferred,Maximum file size: 50MB,Include dimensions and scale information,One file per floor level"
+      },
+      "status": {
+        "uploading": "Uploading...",
+        "completed": "completed"
+      },
+      "nextStep": "Next: Place Devices"
+    },
     "inputMethod": {
+      "recommended": "Recommended",
       "title": "How would you like to design your smart home?",
       "subtitle": "Choose the method that works best for you. Both options will give you a comprehensive cost estimate.",
       "manual": {
@@ -564,5 +590,323 @@
   "qty": "Qty",
   "noDevicesFound": "No Devices Found",
   "tryDifferentCategory": "Try selecting a different category"
-}
+},
+"floorPlan": {
+  "rotate": "Rotate",
+  "remove": "Remove",
+  "zoomIn": "Zoom In", 
+  "zoomOut": "Zoom Out",
+  "dwgFloorPlan": "DWG Floor Plan",
+  "dropDeviceHere": "Drop device here",
+  "noDevicesPlaced": "No Devices Placed",
+  "dragInstructions": "Drag devices from the left panel to place them on your floor plan",
+  "devicesPlaced": "Devices Placed",
+  "scale": "Scale",
+  "canvas": "Canvas"
+},
+"visualization3D": {
+  "device": "Device",
+  "sqft": "sq ft"
+},
+"contactInfo": {
+  "formDescription": "We'll use this to create and send your personalized quote"
+},
+"costCalculation": {
+  "unknownDevice": "Unknown Device",
+  "creatingQuote": "Creating Your Personalized Quote",
+  "sqft": "sq ft",
+  "installationDescription": "Certified technicians, testing & configuration",
+  "taxDescription": "As per Saudi Arabia tax regulations",
+  "allInclusive": "All-inclusive smart home package"
+},
+"devicePlacement": {
+  "floorPlan": "Floor Plan",
+  "device": "device",
+  "devices": "devices", 
+  "placed": "placed"
+},
+"stepProgress": {
+    "yourProgress": "Your Progress",
+    "stepCount": "Step {{current}} of {{total}}",
+    "inputMethod": {
+      "title": "Input Method",
+      "description": "Choose approach"
+    },
+    "propertyDetails": {
+      "title": "Property Details", 
+      "description": "Basic information"
+    },
+    "floorUpload": {
+      "title": "Floor Plans",
+      "description": "Upload drawings"
+    },
+    "devicePlacement": {
+      "title": "Device Selection",
+      "description": "Choose devices",
+      "titleDwg": "Device Placement",
+      "descriptionDwg": "Position devices"
+    },
+    "3dVisualization": {
+      "title": "3D Preview",
+      "description": "View design"
+    },
+    "costCalculation": {
+      "title": "Cost Estimate",
+      "description": "Review pricing"
+    },
+    "contactInfo": {
+      "title": "Contact Info",
+      "description": "Your details"
+    },
+    "quoteGeneration": {
+      "title": "Quote Ready",
+      "description": "Get quote"
+    },
+    "professionalMode": "Professional Mode",
+    "quickMode": "Quick Mode"
+  },
+  "Tdevices": {
+    "smartLock": {
+      "name": "Smart Door Lock",
+      "description": "Keyless entry with mobile app control",
+      "specs": {
+        "connectivity": "Connectivity",
+        "batteryLife": "Battery Life",
+        "security": "Security",
+        "compatibility": "Compatibility"
+      }
+    },
+    "securityCamera": {
+      "name": "Security Camera System",
+      "description": "HD cameras with night vision & recording",
+      "specs": {
+        "resolution": "Resolution",
+        "nightVision": "Night Vision",
+        "nightVisionValue": "Up to 30ft",
+        "storage": "Storage",
+        "storageValue": "Cloud + Local",
+        "fieldOfView": "Field of View"
+      }
+    },
+    "motionSensor": {
+      "name": "Motion Detection Sensor",
+      "description": "Intelligent movement detection system",
+      "specs": {
+        "detectionRange": "Detection Range",
+        "sensitivity": "Sensitivity",
+        "sensitivityValue": "Adjustable",
+        "batteryLife": "Battery Life",
+        "responseTime": "Response Time"
+      }
+    },
+    "smokeDetector": {
+      "name": "Smart Smoke Detector",
+      "description": "Connected fire safety with mobile alerts",
+      "specs": {
+        "detectionType": "Detection Type",
+        "detectionTypeValue": "Photoelectric + Ionization",
+        "batteryLife": "Battery Life",
+        "connectivity": "Connectivity",
+        "certification": "Certification"
+      }
+    },
+    "alarmSystem": {
+      "name": "Central Alarm System",
+      "description": "Comprehensive security monitoring",
+      "specs": {
+        "zones": "Zones",
+        "zonesValue": "Up to 32",
+        "monitoring": "Monitoring",
+        "monitoringValue": "24/7 Professional",
+        "backup": "Backup",
+        "backupValue": "Cellular + Battery",
+        "integration": "Integration",
+        "integrationValue": "Smart Home Compatible"
+      }
+    },
+    "videoDoorbell": {
+      "name": "Smart Video Doorbell",
+      "description": "Two-way communication with visitors",
+      "specs": {
+        "videoQuality": "Video Quality",
+        "twoWayAudio": "Two-Way Audio",
+        "twoWayAudioValue": "Crystal Clear",
+        "motionDetection": "Motion Detection",
+        "motionDetectionValue": "Advanced AI",
+        "storage": "Storage",
+        "storageValue": "Cloud Recording"
+      }
+    },
+    "smartBulb": {
+      "name": "Smart LED Bulb",
+      "description": "Color-changing smart bulb with app control",
+      "specs": {
+        "colors": "Colors",
+        "colorsValue": "16 million",
+        "brightness": "Brightness",
+        "energy": "Energy",
+        "lifespan": "Lifespan",
+        "lifespanValue": "25,000 hours"
+      }
+    },
+    "smartSwitch": {
+      "name": "Smart Light Switch",
+      "description": "Voice and app controlled light switch",
+      "specs": {
+        "installation": "Installation",
+        "installationValue": "No neutral wire required",
+        "dimming": "Dimming",
+        "dimmingValue": "Full range",
+        "voiceControl": "Voice Control",
+        "scheduling": "Scheduling",
+        "schedulingValue": "Advanced timer functions"
+      }
+    },
+    "motionLight": {
+      "name": "Motion Sensor Light",
+      "description": "Automatic lighting with motion detection",
+      "specs": {
+        "detectionRange": "Detection Range",
+        "autoShutOff": "Auto Shut-off",
+        "autoShutOffValue": "Customizable",
+        "brightness": "Brightness",
+        "weatherResistant": "Weather Resistant"
+      }
+    },
+    "smartThermostat": {
+      "name": "Smart Thermostat",
+      "description": "AI-powered climate optimization",
+      "specs": {
+        "learning": "Learning",
+        "learningValue": "AI-powered",
+        "energySavings": "Energy Savings",
+        "energySavingsValue": "Up to 23%",
+        "compatibility": "Compatibility",
+        "compatibilityValue": "Most HVAC systems",
+        "remoteControl": "Remote Control",
+        "remoteControlValue": "WiFi enabled"
+      }
+    },
+    "smartFan": {
+      "name": "Smart Ceiling Fan",
+      "description": "Remote controlled fan with scheduling",
+      "specs": {
+        "speedSettings": "Speed Settings",
+        "speedSettingsValue": "6 speeds",
+        "direction": "Direction",
+        "directionValue": "Reversible",
+        "light": "Light",
+        "lightValue": "Integrated LED",
+        "energy": "Energy",
+        "energyValue": "DC motor efficiency"
+      }
+    },
+    "smartBlinds": {
+      "name": "Automated Window Blinds",
+      "description": "Smart blinds and curtain control",
+      "specs": {
+        "motor": "Motor",
+        "motorValue": "Whisper quiet",
+        "power": "Power",
+        "powerValue": "Rechargeable battery",
+        "control": "Control",
+        "controlValue": "App, voice, schedule",
+        "installation": "Installation",
+        "installationValue": "Easy retrofit"
+      }
+    },
+    "smartTV": {
+      "name": "Smart TV Integration",
+      "description": "Centralized entertainment control",
+      "specs": {
+        "screenSize": "Screen Size",
+        "smartFeatures": "Smart Features",
+        "smartFeaturesValue": "Built-in streaming",
+        "voiceControl": "Voice Control",
+        "voiceControlValue": "Multi-assistant",
+        "connectivity": "Connectivity"
+      }
+    },
+    "soundSystem": {
+      "name": "Whole House Audio",
+      "description": "Multi-room audio streaming system",
+      "specs": {
+        "zones": "Zones",
+        "zonesValue": "Up to 8 rooms",
+        "audioQuality": "Audio Quality",
+        "audioQualityValue": "Hi-Fi stereo",
+        "streaming": "Streaming",
+        "streamingValue": "All major services",
+        "control": "Control",
+        "controlValue": "Voice + App"
+      }
+    },
+    "voiceAssistant": {
+      "name": "Voice Assistant Hub",
+      "description": "Voice-controlled home automation",
+      "specs": {
+        "voiceRecognition": "Voice Recognition",
+        "voiceRecognitionValue": "Far-field mics",
+        "integration": "Integration",
+        "integrationValue": "1000+ devices",
+        "music": "Music",
+        "musicValue": "Premium sound quality",
+        "privacy": "Privacy",
+        "privacyValue": "Mute button"
+      }
+    },
+    "smartFridge": {
+      "name": "Smart Refrigerator",
+      "description": "Connected fridge with inventory tracking",
+      "specs": {
+        "capacity": "Capacity",
+        "features": "Features",
+        "featuresValue": "Internal cameras",
+        "energy": "Energy",
+        "energyValue": "ENERGY STAR certified",
+        "connectivity": "Connectivity",
+        "connectivityValue": "WiFi, touchscreen"
+      }
+    },
+    "smartOven": {
+      "name": "Smart Oven System",
+      "description": "Remote cooking control and monitoring",
+      "specs": {
+        "cookingModes": "Cooking Modes",
+        "cookingModesValue": "12 pre-programmed",
+        "temperature": "Temperature",
+        "temperatureValue": "Precise control",
+        "safety": "Safety",
+        "safetyValue": "Auto shut-off",
+        "monitoring": "Monitoring",
+        "monitoringValue": "Internal camera"
+      }
+    },
+    "smartDishwasher": {
+      "name": "Smart Dishwasher",
+      "description": "Efficient cleaning with app control",
+      "specs": {
+        "capacity": "Capacity",
+        "capacityValue": "16 place settings",
+        "efficiency": "Efficiency",
+        "cycles": "Cycles",
+        "cyclesValue": "8 wash cycles",
+        "noise": "Noise",
+        "noiseValue": "Ultra-quiet 38dB"
+      }
+    },
+    "wifiRouter": {
+      "name": "Mesh WiFi System",
+      "description": "High-speed internet throughout home",
+      "specs": {
+        "speed": "Speed",
+        "speedValue": "WiFi 6E up to 6Gbps",
+        "coverage": "Coverage",
+        "coverageValue": "Up to 6,000 sq ft",
+        "devices": "Devices",
+        "devicesValue": "Support 200+ devices",
+        "security": "Security"
+      }
+    }
+  }
 }

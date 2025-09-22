@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaWhatsapp, FaSms, FaDownload, FaPrint, FaShare, FaCheckCircle, FaHome, FaArrowLeft } from 'react-icons/fa';
 import { useEstimationStore } from '@/store/estimationStore';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
@@ -17,6 +18,7 @@ const QuoteGenerationStep: React.FC = () => {
     reset
   } = useEstimationStore();
 
+  const { t, isRTL } = useLanguage();
   const [isGenerating, setIsGenerating] = useState(true);
   const [quoteGenerated, setQuoteGenerated] = useState(false);
   const [sendingStatus, setSendingStatus] = useState<Record<string, 'idle' | 'sending' | 'sent' | 'error'>>({});
@@ -27,11 +29,11 @@ const QuoteGenerationStep: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 3000));
       setIsGenerating(false);
       setQuoteGenerated(true);
-      toast.success('Your smart home quote is ready!');
+      toast.success(t('toast.quoteReady'));
     };
 
     generateQuote();
-  }, []);
+  }, [t]);
 
   const generateQuotePDF = () => {
     const currentDate = new Date().toLocaleDateString('en-GB', {
@@ -44,11 +46,11 @@ const QuoteGenerationStep: React.FC = () => {
     
     const htmlContent = `
       <!DOCTYPE html>
-      <html lang="en">
+      <html lang="${isRTL ? 'ar' : 'en'}" dir="${isRTL ? 'rtl' : 'ltr'}">
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>SmartLife Quote ${quoteId} - ${contactInfo.firstName} ${contactInfo.lastName}</title>
+          <title>${t('steps.quoteGeneration.smartLifeQuote')} ${quoteId} - ${contactInfo.firstName} ${contactInfo.lastName}</title>
           <style>
               * {
                   margin: 0;
@@ -64,6 +66,7 @@ const QuoteGenerationStep: React.FC = () => {
                   padding: 20px;
                   max-width: 800px;
                   margin: 0 auto;
+                  direction: ${isRTL ? 'rtl' : 'ltr'};
               }
               
               .quote-container {
@@ -106,7 +109,7 @@ const QuoteGenerationStep: React.FC = () => {
               }
               
               .quote-details {
-                  text-align: right;
+                  text-align: ${isRTL ? 'left' : 'right'};
               }
               
               .quote-id {
@@ -268,140 +271,12 @@ const QuoteGenerationStep: React.FC = () => {
                   opacity: 0.8;
               }
               
-              .included-services {
-                  background: #e8f5e8;
-                  border: 1px solid #c3e6c3;
-                  border-radius: 12px;
-                  padding: 25px;
-                  margin: 20px 0;
-              }
-              
-              .included-services h3 {
-                  color: #28a745;
-                  margin-bottom: 15px;
-                  font-size: 20px;
-              }
-              
-              .service-list {
-                  list-style: none;
-                  padding: 0;
-              }
-              
-              .service-item {
-                  margin: 12px 0;
-                  padding-left: 25px;
-                  position: relative;
-                  font-size: 16px;
-                  line-height: 1.5;
-              }
-              
-              .service-item::before {
-                  content: "✓";
-                  position: absolute;
-                  left: 0;
-                  color: #28a745;
-                  font-weight: bold;
-                  font-size: 18px;
-              }
-              
-              .footer-info {
-                  background: #f8f9fa;
-                  padding: 30px;
-                  border-radius: 12px;
-                  margin-top: 30px;
-                  text-align: center;
-                  border: 1px solid #e9ecef;
-              }
-              
-              .footer-info h3 {
-                  color: #483C8E;
-                  margin-bottom: 15px;
-                  font-size: 22px;
-              }
-              
-              .contact-grid {
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                  gap: 20px;
-                  margin: 20px 0;
-              }
-              
-              .contact-item {
-                  color: #6c757d;
-                  font-size: 16px;
-                  font-weight: 500;
-              }
-              
-              .validity-note {
-                  background: #fff3cd;
-                  border: 2px solid #ffc107;
-                  color: #856404;
-                  padding: 20px;
-                  border-radius: 12px;
-                  margin-top: 25px;
-                  text-align: center;
-                  font-size: 16px;
-                  font-weight: 500;
-              }
-              
-              .next-steps {
-                  background: #e3f2fd;
-                  border: 1px solid #90caf9;
-                  border-radius: 12px;
-                  padding: 25px;
-                  margin: 20px 0;
-              }
-              
-              .next-steps h3 {
-                  color: #1976d2;
-                  margin-bottom: 15px;
-                  font-size: 20px;
-              }
-              
-              .step-item {
-                  margin: 10px 0;
-                  padding-left: 30px;
-                  position: relative;
-                  font-size: 16px;
-              }
-              
-              .step-number {
-                  position: absolute;
-                  left: 0;
-                  width: 24px;
-                  height: 24px;
-                  background: #1976d2;
-                  color: white;
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 12px;
-                  font-weight: bold;
-              }
-              
               @media print {
                   body {
                       padding: 0;
                       background: white !important;
                       -webkit-print-color-adjust: exact;
                       print-color-adjust: exact;
-                  }
-                  
-                  .quote-container {
-                      box-shadow: none;
-                      border: 1px solid #ddd;
-                  }
-                  
-                  .quote-header,
-                  .total-section {
-                      background: linear-gradient(135deg, #483C8E 0%, #C36BA8 100%) !important;
-                      -webkit-print-color-adjust: exact;
-                      print-color-adjust: exact;
-                  }
-                  
-                  .page-break {
-                      page-break-before: always;
                   }
               }
           </style>
@@ -412,14 +287,14 @@ const QuoteGenerationStep: React.FC = () => {
                   <div class="header-content">
                       <div class="company-info">
                           <h1>SmartLife</h1>
-                          <div class="company-tagline">Smart Solutions for Modern Living</div>
+                          <div class="company-tagline">${t('footer.company.tagline')}</div>
                           <div class="customer-info">
-                              Quote for: ${contactInfo.firstName} ${contactInfo.lastName}
+                              ${t('steps.quoteGeneration.quoteFor')} ${contactInfo.firstName} ${contactInfo.lastName}
                           </div>
                       </div>
                       <div class="quote-details">
                           <div class="quote-id">Quote ID: ${quoteId}</div>
-                          <div class="quote-date">${currentDate}</div>
+                          <div class="quote-date">${t('steps.quoteGeneration.quoteDate')}: ${currentDate}</div>
                       </div>
                   </div>
               </div>
@@ -428,32 +303,24 @@ const QuoteGenerationStep: React.FC = () => {
                   <div class="section">
                       <h2>
                           <span class="section-icon">🏠</span>
-                          Property Details
+                          ${t('steps.quoteGeneration.propertyDetails')}
                       </h2>
                       <div class="property-grid">
                           <div class="property-item">
-                              <div class="label">Property Type</div>
+                              <div class="label">${t('steps.quoteGeneration.propertyValues.propertyType')}</div>
                               <div class="value">${propertyDetails.type}</div>
                           </div>
                           <div class="property-item">
-                              <div class="label">Total Area</div>
+                              <div class="label">${t('steps.quoteGeneration.propertyValues.totalArea')}</div>
                               <div class="value">${propertyDetails.size?.toLocaleString()} sq ft</div>
                           </div>
                           <div class="property-item">
-                              <div class="label">Rooms</div>
+                              <div class="label">${t('steps.quoteGeneration.propertyValues.rooms')}</div>
                               <div class="value">${propertyDetails.rooms}</div>
                           </div>
                           <div class="property-item">
-                              <div class="label">Bathrooms</div>
-                              <div class="value">${propertyDetails.bathrooms}</div>
-                          </div>
-                          <div class="property-item">
-                              <div class="label">Implementation</div>
-                              <div class="value">${inputMethod === 'dwg' ? '3D Design with Floor Plans' : 'Standard Installation'}</div>
-                          </div>
-                          <div class="property-item">
-                              <div class="label">Project Location</div>
-                              <div class="value">${contactInfo.city || 'Riyadh'}, Saudi Arabia</div>
+                              <div class="label">${t('steps.quoteGeneration.propertyValues.implementation')}</div>
+                              <div class="value">${inputMethod === 'dwg' ? t('steps.quoteGeneration.propertyValues.3dDesign') : t('steps.quoteGeneration.propertyValues.standard')}</div>
                           </div>
                       </div>
                   </div>
@@ -461,14 +328,14 @@ const QuoteGenerationStep: React.FC = () => {
                   <div class="section">
                       <h2>
                           <span class="section-icon">🔧</span>
-                          Smart Devices & Equipment
+                          ${t('steps.quoteGeneration.devicesIncluded')}
                       </h2>
                       <div class="device-list">
                           ${costBreakdown.devices.map((device: any) => `
                               <div class="device-item">
                                   <div class="device-info">
                                       <h3>${device.name}</h3>
-                                      <p>Quantity: ${device.quantity} × SAR ${device.unitPrice.toLocaleString()}</p>
+                                      <p>${t('steps.quoteGeneration.quantity')} ${device.quantity} × SAR ${device.unitPrice.toLocaleString()}</p>
                                   </div>
                                   <div class="device-price">SAR ${device.totalPrice.toLocaleString()}</div>
                               </div>
@@ -476,103 +343,12 @@ const QuoteGenerationStep: React.FC = () => {
                       </div>
                   </div>
                   
-                  <div class="section">
-                      <h2>
-                          <span class="section-icon">💰</span>
-                          Cost Breakdown
-                      </h2>
-                      <div class="cost-breakdown">
-                          <div class="cost-item">
-                              <span>Base Installation Package</span>
-                              <span>SAR ${costBreakdown.baseInstallation.toLocaleString()}</span>
-                          </div>
-                          <div class="cost-item">
-                              <span>Smart Devices (${costBreakdown.devices.length} items)</span>
-                              <span>SAR ${costBreakdown.devices.reduce((sum: number, device: any) => sum + device.totalPrice, 0).toLocaleString()}</span>
-                          </div>
-                          <div class="cost-item">
-                              <span>Professional Installation & Setup</span>
-                              <span>SAR ${costBreakdown.labor.toLocaleString()}</span>
-                          </div>
-                          <div class="cost-item">
-                              <span>VAT (15%)</span>
-                              <span>SAR ${costBreakdown.tax.toLocaleString()}</span>
-                          </div>
-                          <div class="cost-item">
-                              <span>TOTAL INVESTMENT</span>
-                              <span>SAR ${costBreakdown.total.toLocaleString()}</span>
-                          </div>
-                      </div>
-                  </div>
-                  
                   <div class="total-section">
-                      <h2 style="color: white; margin-bottom: 15px; border: none; padding: 0;">Total Investment</h2>
+                      <h2 style="color: white; margin-bottom: 15px; border: none; padding: 0;">${t('costCalculation.totalInvestment')}</h2>
                       <div class="total-amount">SAR ${costBreakdown.total.toLocaleString()}</div>
-                      <div class="total-description">Complete Smart Home Package</div>
-                      <div class="total-note">Including VAT, Professional Installation & 2-Year Warranty</div>
+                      <div class="total-description">${t('steps.quoteGeneration.allInclusive')}</div>
+                      <div class="total-note">${t('steps.quoteGeneration.includingVat')}</div>
                   </div>
-                  
-                  <div class="included-services">
-                      <h3>What's Included in Your Package</h3>
-                      <ul class="service-list">
-                          <li class="service-item">Professional installation by certified IoT technicians</li>
-                          <li class="service-item">Complete system setup and configuration</li>
-                          <li class="service-item">SmartLife mobile app setup and training</li>
-                          <li class="service-item">2-year comprehensive warranty on all components</li>
-                          <li class="service-item">24/7 technical support and assistance</li>
-                          <li class="service-item">Lifetime software updates and security patches</li>
-                          <li class="service-item">Annual maintenance and system checkup</li>
-                          <li class="service-item">Free consultation for future smart home expansions</li>
-                      </ul>
-                  </div>
-                  
-                  <div class="next-steps">
-                      <h3>Next Steps - Your Smart Home Journey</h3>
-                      <div class="step-item">
-                          <span class="step-number">1</span>
-                          Our smart home consultant will contact you within 24 hours
-                      </div>
-                      <div class="step-item">
-                          <span class="step-number">2</span>
-                          Schedule a free in-home consultation and site survey
-                      </div>
-                      <div class="step-item">
-                          <span class="step-number">3</span>
-                          Finalize device placement and installation timeline
-                      </div>
-                      <div class="step-item">
-                          <span class="step-number">4</span>
-                          Professional installation completed within 1-2 weeks
-                      </div>
-                      <div class="step-item">
-                          <span class="step-number">5</span>
-                          System training and handover to start enjoying your smart home
-                      </div>
-                  </div>
-              </div>
-              
-              <div class="footer-info">
-                  <h3>SmartLife - Smart Solutions for Modern Living</h3>
-                  <div class="contact-grid">
-                      <div class="contact-item">
-                          📧 Email: info@smartlife.sa
-                      </div>
-                      <div class="contact-item">
-                          📱 Phone: +966 11 234 5678
-                      </div>
-                      <div class="contact-item">
-                          🌐 Website: www.smartlife.sa
-                      </div>
-                      <div class="contact-item">
-                          📍 Location: Riyadh, Saudi Arabia
-                      </div>
-                  </div>
-              </div>
-              
-              <div class="validity-note">
-                  <strong>Important Notice:</strong> This quote is valid for 30 days from the date of generation. 
-                  All prices include VAT and are subject to final site survey confirmation. 
-                  Installation timeline may vary based on product availability and scheduling.
               </div>
           </div>
       </body>
@@ -602,13 +378,13 @@ const QuoteGenerationStep: React.FC = () => {
 
       if (response.ok) {
         setSendingStatus(prev => ({ ...prev, email: 'sent' }));
-        toast.success('Quote sent to your email!');
+        toast.success(t('toast.emailSent'));
       } else {
         throw new Error('Failed to send email');
       }
     } catch (error) {
       setSendingStatus(prev => ({ ...prev, email: 'error' }));
-      toast.error('Failed to send email. Please try again.');
+      toast.error(t('toast.emailFailed'));
     }
   };
 
@@ -630,14 +406,14 @@ const QuoteGenerationStep: React.FC = () => {
       
       if (result.success) {
         setSendingStatus(prev => ({ ...prev, whatsapp: 'sent' }));
-        toast.success(result.message);
+        toast.success(t('toast.whatsappSent'));
       } else {
         setSendingStatus(prev => ({ ...prev, whatsapp: 'error' }));
-        toast.error(result.message);
+        toast.error(t('toast.whatsappFailed'));
       }
     } catch (error) {
       setSendingStatus(prev => ({ ...prev, whatsapp: 'error' }));
-      toast.error('Failed to send WhatsApp message. Please try again.');
+      toast.error(t('toast.whatsappFailed'));
     }
   };
 
@@ -659,25 +435,25 @@ const QuoteGenerationStep: React.FC = () => {
       
       if (result.success) {
         setSendingStatus(prev => ({ ...prev, sms: 'sent' }));
-        toast.success(result.message);
+        toast.success(t('toast.smsSent'));
       } else {
         setSendingStatus(prev => ({ ...prev, sms: 'error' }));
-        toast.error(result.message);
+        toast.error(t('toast.smsFailed'));
       }
     } catch (error) {
       setSendingStatus(prev => ({ ...prev, sms: 'error' }));
-      toast.error('Failed to send SMS. Please try again.');
+      toast.error(t('toast.smsFailed'));
     }
   };
 
   const handleDownloadPDF = async () => {
     try {
       if (!costBreakdown || !contactInfo || !propertyDetails) {
-        toast.error('Quote data is incomplete. Please try again.');
+        toast.error(t('toast.pdfFailed'));
         return;
       }
 
-      toast.loading('Generating PDF...', { id: 'pdf-generation' });
+      toast.loading(t('common.loading'), { id: 'pdf-generation' });
       
       // Generate PDF content
       const htmlContent = generateQuotePDF();
@@ -686,7 +462,7 @@ const QuoteGenerationStep: React.FC = () => {
       const printWindow = window.open('', '_blank', 'width=800,height=600');
       
       if (!printWindow) {
-        toast.error('Popup blocked. Please allow popups for this site.', { id: 'pdf-generation' });
+        toast.error(t('toast.pdfFailed'), { id: 'pdf-generation' });
         return;
       }
 
@@ -704,23 +480,23 @@ const QuoteGenerationStep: React.FC = () => {
           printWindow.close();
         }, 1000);
         
-        toast.success('PDF generated successfully! Use your browser\'s print dialog to save as PDF.', { id: 'pdf-generation' });
+        toast.success(t('toast.pdfGenerated'), { id: 'pdf-generation' });
       }, 500);
 
     } catch (error) {
       console.error('PDF generation error:', error);
-      toast.error('Failed to generate PDF. Please check your popup settings.', { id: 'pdf-generation' });
+      toast.error(t('toast.pdfFailed'), { id: 'pdf-generation' });
     }
   };
 
   const handlePrint = async () => {
     try {
       if (!costBreakdown || !contactInfo || !propertyDetails) {
-        toast.error('Quote data is incomplete. Please try again.');
+        toast.error(t('toast.printFailed'));
         return;
       }
 
-      toast.loading('Preparing print...', { id: 'print-preparation' });
+      toast.loading(t('common.loading'), { id: 'print-preparation' });
       
       // Generate print content
       const htmlContent = generateQuotePDF();
@@ -729,7 +505,7 @@ const QuoteGenerationStep: React.FC = () => {
       const printWindow = window.open('', '_blank', 'width=800,height=600');
       
       if (!printWindow) {
-        toast.error('Popup blocked. Please allow popups for this site.', { id: 'print-preparation' });
+        toast.error(t('toast.printFailed'), { id: 'print-preparation' });
         return;
       }
 
@@ -752,19 +528,19 @@ const QuoteGenerationStep: React.FC = () => {
           printWindow.close();
         }, 3000);
         
-        toast.success('Print dialog opened!', { id: 'print-preparation' });
+        toast.success(t('toast.printReady'), { id: 'print-preparation' });
       }, 500);
 
     } catch (error) {
       console.error('Print error:', error);
-      toast.error('Failed to open print dialog. Please check your popup settings.', { id: 'print-preparation' });
+      toast.error(t('toast.printFailed'), { id: 'print-preparation' });
     }
   };
 
   const handleStartNew = () => {
     reset();
     setCurrentStep('input-method');
-    toast.success('Ready for a new quote!');
+    toast.success(t('toast.newQuoteReady'));
   };
 
   const handleBack = () => {
@@ -776,7 +552,7 @@ const QuoteGenerationStep: React.FC = () => {
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">
-            Generating Your Smart Home Quote
+            {t('steps.quoteGeneration.generating')}
           </h2>
           
           <div className="bg-white rounded-3xl shadow-2xl p-12">
@@ -787,30 +563,19 @@ const QuoteGenerationStep: React.FC = () => {
               </div>
             </div>
             
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Creating Your Personalized Quote</h3>
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">{t('costCalculation.creatingQuote')}</h3>
             
             <div className="space-y-3 text-gray-600">
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                Finalizing device selections and pricing...
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-              >
-                Calculating installation requirements...
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2.5 }}
-              >
-                Preparing your comprehensive quote document...
-              </motion.p>
+              {t('steps.quoteGeneration.generatingSteps').split(',').map((step, index) => (
+                <motion.p
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 + index * 1 }}
+                >
+                  {step.trim()}
+                </motion.p>
+              ))}
             </div>
           </div>
         </div>
@@ -827,14 +592,14 @@ const QuoteGenerationStep: React.FC = () => {
           className="inline-flex items-center gap-3 bg-green-100 text-green-800 px-6 py-3 rounded-full mb-6"
         >
           <FaCheckCircle className="text-xl" />
-          <span className="font-semibold">Quote Generated Successfully!</span>
+          <span className="font-semibold">{t('steps.quoteGeneration.quoteReady')}</span>
         </motion.div>
         
         <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-          Your Smart Home Quote is Ready
+          {t('steps.quoteGeneration.title')}
         </h2>
         <p className="text-xl text-white/80 max-w-3xl mx-auto">
-          Choose how you'd like to receive and share your personalized smart home estimate
+          {t('steps.quoteGeneration.subtitle')}
         </p>
       </div>
 
@@ -848,15 +613,15 @@ const QuoteGenerationStep: React.FC = () => {
           >
             {/* Quote Header */}
             <div className="bg-gradient-to-r from-primary-900 to-accent-500 p-8 text-white">
-              <div className="flex items-center justify-between">
+              <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div>
-                  <h3 className="text-2xl font-bold mb-2">SmartLife Professional Quote</h3>
+                  <h3 className="text-2xl font-bold mb-2">{t('steps.quoteGeneration.smartLifeQuote')}</h3>
                   <p className="opacity-90">
-                    For: {contactInfo.firstName} {contactInfo.lastName}
+                    {t('steps.quoteGeneration.quoteFor')} {contactInfo.firstName} {contactInfo.lastName}
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm opacity-80">Quote Date</p>
+                <div className={`${isRTL ? 'text-left' : 'text-right'}`}>
+                  <p className="text-sm opacity-80">{t('steps.quoteGeneration.quoteDate')}</p>
                   <p className="font-medium">{new Date().toLocaleDateString()}</p>
                 </div>
               </div>
@@ -866,37 +631,39 @@ const QuoteGenerationStep: React.FC = () => {
             <div className="p-8">
               {/* Property Summary */}
               <div className="mb-8">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Property Details</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.quoteGeneration.propertyDetails')}</h4>
                 <div className="grid md:grid-cols-2 gap-4 text-sm">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-gray-600">Property Type</p>
+                    <p className="text-gray-600">{t('steps.quoteGeneration.propertyValues.propertyType')}</p>
                     <p className="font-medium text-gray-800 capitalize">{propertyDetails.type}</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-gray-600">Total Area</p>
+                    <p className="text-gray-600">{t('steps.quoteGeneration.propertyValues.totalArea')}</p>
                     <p className="font-medium text-gray-800">{propertyDetails.size?.toLocaleString()} sq ft</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-gray-600">Rooms</p>
+                    <p className="text-gray-600">{t('steps.quoteGeneration.propertyValues.rooms')}</p>
                     <p className="font-medium text-gray-800">{propertyDetails.rooms}</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-gray-600">Implementation</p>
-                    <p className="font-medium text-gray-800 capitalize">{inputMethod === 'dwg' ? '3D Design' : 'Standard'}</p>
+                    <p className="text-gray-600">{t('steps.quoteGeneration.propertyValues.implementation')}</p>
+                    <p className="font-medium text-gray-800 capitalize">
+                      {inputMethod === 'dwg' ? t('steps.quoteGeneration.propertyValues.3dDesign') : t('steps.quoteGeneration.propertyValues.standard')}
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Device Summary */}
               <div className="mb-8">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Smart Devices Included</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.quoteGeneration.devicesIncluded')}</h4>
                 {costBreakdown && (
                   <div className="space-y-3">
                     {costBreakdown.devices.map(device => (
-                      <div key={device.deviceId} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <div key={device.deviceId} className={`flex justify-between items-center p-3 bg-gray-50 rounded-lg ${isRTL ? 'flex-row-reverse' : ''}`}>
                         <div>
                           <p className="font-medium text-gray-800">{device.name}</p>
-                          <p className="text-sm text-gray-600">Quantity: {device.quantity}</p>
+                          <p className="text-sm text-gray-600">{t('steps.quoteGeneration.quantity')} {device.quantity}</p>
                         </div>
                         <p className="font-bold text-accent-600">SAR {device.totalPrice.toLocaleString()}</p>
                       </div>
@@ -908,16 +675,16 @@ const QuoteGenerationStep: React.FC = () => {
               {/* Total */}
               {costBreakdown && (
                 <div className="bg-gradient-to-r from-accent-50 to-primary-50 p-6 rounded-2xl">
-                  <div className="flex justify-between items-center">
+                  <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <div>
-                      <h4 className="text-xl font-bold text-gray-800">Total Investment</h4>
-                      <p className="text-gray-600">All-inclusive smart home package</p>
+                      <h4 className="text-xl font-bold text-gray-800">{t('costCalculation.totalInvestment')}</h4>
+                      <p className="text-gray-600">{t('steps.quoteGeneration.allInclusive')}</p>
                     </div>
-                    <div className="text-right">
+                    <div className={`${isRTL ? 'text-left' : 'text-right'}`}>
                       <p className="text-3xl font-bold text-accent-600">
                         SAR {costBreakdown.total.toLocaleString()}
                       </p>
-                      <p className="text-sm text-gray-600">Including VAT & Installation</p>
+                      <p className="text-sm text-gray-600">{t('steps.quoteGeneration.includingVat')}</p>
                     </div>
                   </div>
                 </div>
@@ -935,7 +702,7 @@ const QuoteGenerationStep: React.FC = () => {
             transition={{ delay: 0.1 }}
             className="bg-white rounded-2xl p-6 shadow-xl"
           >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Send Your Quote</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.quoteGeneration.sendOptions')}</h3>
             <div className="space-y-3">
               {/* Email */}
               <button
@@ -947,12 +714,13 @@ const QuoteGenerationStep: React.FC = () => {
                     ? 'bg-green-100 border-2 border-green-500' 
                     : 'bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-300'
                   }
+                  ${isRTL ? 'flex-row-reverse' : ''}
                 `}
               >
-                <div className="flex items-center gap-3">
+                <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <FaEnvelope className="text-blue-600" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-800">Email Quote</p>
+                  <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
+                    <p className="font-medium text-gray-800">{t('steps.quoteGeneration.emailQuote')}</p>
                     <p className="text-sm text-gray-600">{contactInfo.email}</p>
                   </div>
                 </div>
@@ -970,12 +738,13 @@ const QuoteGenerationStep: React.FC = () => {
                     ? 'bg-green-100 border-2 border-green-500' 
                     : 'bg-green-50 hover:bg-green-100 border-2 border-green-200 hover:border-green-300'
                   }
+                  ${isRTL ? 'flex-row-reverse' : ''}
                 `}
               >
-                <div className="flex items-center gap-3">
+                <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <FaWhatsapp className="text-green-600" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-800">WhatsApp Quote</p>
+                  <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
+                    <p className="font-medium text-gray-800">{t('steps.quoteGeneration.whatsappQuote')}</p>
                     <p className="text-sm text-gray-600">{contactInfo.phone}</p>
                   </div>
                 </div>
@@ -993,13 +762,14 @@ const QuoteGenerationStep: React.FC = () => {
                     ? 'bg-green-100 border-2 border-green-500' 
                     : 'bg-purple-50 hover:bg-purple-100 border-2 border-purple-200 hover:border-purple-300'
                   }
+                  ${isRTL ? 'flex-row-reverse' : ''}
                 `}
               >
-                <div className="flex items-center gap-3">
+                <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <FaSms className="text-purple-600" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-800">SMS Summary</p>
-                    <p className="text-sm text-gray-600">Quick summary text</p>
+                  <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
+                    <p className="font-medium text-gray-800">{t('steps.quoteGeneration.smsQuote')}</p>
+                    <p className="text-sm text-gray-600">{t('steps.quoteGeneration.quickSummary')}</p>
                   </div>
                 </div>
                 {sendingStatus.sms === 'sending' && <div className="spinner text-purple-600" />}
@@ -1015,21 +785,21 @@ const QuoteGenerationStep: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="bg-white rounded-2xl p-6 shadow-xl"
           >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Download & Share</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.quoteGeneration.downloadShare')}</h3>
             <div className="space-y-3">
               <button
                 onClick={handleDownloadPDF}
-                className="w-full border-2 border-accent-500 text-accent-500 bg-transparent font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-accent-500 hover:text-white flex items-center justify-center gap-2"
+                className={`w-full border-2 border-accent-500 text-accent-500 bg-transparent font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-accent-500 hover:text-white flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
               >
                 <FaDownload />
-                Download PDF
+                {t('steps.quoteGeneration.downloadPdf')}
               </button>
               <button
                 onClick={handlePrint}
-                className="w-full bg-gray-100 text-gray-800 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-200 hover:border-accent-500 flex items-center justify-center gap-2"
+                className={`w-full bg-gray-100 text-gray-800 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-200 hover:border-accent-500 flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
               >
                 <FaPrint />
-                Print Quote
+                {t('steps.quoteGeneration.printQuote')}
               </button>
             </div>
           </motion.div>
@@ -1041,45 +811,37 @@ const QuoteGenerationStep: React.FC = () => {
             transition={{ delay: 0.3 }}
             className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-6 border border-accent-200"
           >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">What's Next?</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('steps.quoteGeneration.nextStepsTitle')}</h3>
             <div className="space-y-3 text-sm text-gray-700">
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-accent-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">1</div>
-                <p>Our team will contact you within 24 hours</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-accent-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">2</div>
-                <p>Schedule a free in-home consultation</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-accent-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">3</div>
-                <p>Professional installation in 1-2 weeks</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-accent-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">4</div>
-                <p>Enjoy your smart home with 2-year warranty</p>
-              </div>
+              {t('steps.quoteGeneration.nextStepsItems').split(',').map((item, index) => (
+                <div key={index} className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-6 h-6 bg-accent-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
+                    {index + 1}
+                  </div>
+                  <p>{item.trim()}</p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex justify-between mt-12">
+      <div className={`flex justify-between mt-12 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           onClick={handleBack}
-          className="bg-gray-100 text-gray-800 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-200 hover:border-accent-500 inline-flex items-center gap-2"
+          className={`bg-gray-100 text-gray-800 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-200 hover:border-accent-500 inline-flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <FaArrowLeft />
-          Back to Contact Info
+          <FaArrowLeft className={isRTL ? 'rotate-180' : ''} />
+          {t('steps.quoteGeneration.backStep')}
         </button>
         
         <button
           onClick={handleStartNew}
-          className="bg-gradient-to-r from-primary-900 to-accent-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:shadow-accent-hover hover:-translate-y-1 inline-flex items-center gap-2"
+          className={`bg-gradient-to-r from-primary-900 to-accent-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:shadow-accent-hover hover:-translate-y-1 inline-flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <FaHome />
-          Start New Quote
+          {t('steps.quoteGeneration.startNewQuote')}
         </button>
       </div>
     </div>

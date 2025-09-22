@@ -1,4 +1,252 @@
 {
+  "layout": {
+    "title": "سمارت لايف - حاسبة تكلفة المنزل الذكي",
+    "description": "حول منزلك إلى ملاذ ذكي مع حلول إنترنت الأشياء الشاملة لدينا"
+  },
+    "Tdevices": {
+    "smartLock": {
+      "name": "قفل ذكي للباب",
+      "description": "دخول بدون مفتاح مع تحكم عبر التطبيق",
+      "specs": {
+        "connectivity": "الاتصال",
+        "batteryLife": "عمر البطارية",
+        "security": "الأمان",
+        "compatibility": "التوافق"
+      }
+    },
+    "securityCamera": {
+      "name": "نظام كاميرات الأمان",
+      "description": "كاميرات عالية الدقة مع رؤية ليلية وتسجيل",
+      "specs": {
+        "resolution": "الدقة",
+        "nightVision": "الرؤية الليلية",
+        "nightVisionValue": "حتى 30 قدم",
+        "storage": "التخزين",
+        "storageValue": "سحابي + محلي",
+        "fieldOfView": "مجال الرؤية"
+      }
+    },
+    "motionSensor": {
+      "name": "مستشعر كشف الحركة",
+      "description": "نظام كشف الحركة الذكي",
+      "specs": {
+        "detectionRange": "مدى الكشف",
+        "sensitivity": "الحساسية",
+        "sensitivityValue": "قابل للتعديل",
+        "batteryLife": "عمر البطارية",
+        "responseTime": "وقت الاستجابة"
+      }
+    },
+    "smokeDetector": {
+      "name": "كاشف الدخان الذكي",
+      "description": "سلامة الحرائق المتصلة مع تنبيهات الجوال",
+      "specs": {
+        "detectionType": "نوع الكشف",
+        "detectionTypeValue": "ضوئي + تأين",
+        "batteryLife": "عمر البطارية",
+        "connectivity": "الاتصال",
+        "certification": "الشهادة"
+      }
+    },
+    "alarmSystem": {
+      "name": "نظام الإنذار المركزي",
+      "description": "مراقبة أمنية شاملة",
+      "specs": {
+        "zones": "المناطق",
+        "zonesValue": "حتى 32",
+        "monitoring": "المراقبة",
+        "monitoringValue": "احترافية على مدار الساعة",
+        "backup": "النسخ الاحتياطي",
+        "backupValue": "خلوي + بطارية",
+        "integration": "التكامل",
+        "integrationValue": "متوافق مع المنزل الذكي"
+      }
+    },
+    "videoDoorbell": {
+      "name": "جرس الباب المرئي الذكي",
+      "description": "تواصل ثنائي الاتجاه مع الزوار",
+      "specs": {
+        "videoQuality": "جودة الفيديو",
+        "twoWayAudio": "الصوت ثنائي الاتجاه",
+        "twoWayAudioValue": "واضح جداً",
+        "motionDetection": "كشف الحركة",
+        "motionDetectionValue": "ذكاء اصطناعي متطور",
+        "storage": "التخزين",
+        "storageValue": "تسجيل سحابي"
+      }
+    },
+    "smartBulb": {
+      "name": "مصباح LED ذكي",
+      "description": "مصباح ذكي متغير الألوان مع تحكم بالتطبيق",
+      "specs": {
+        "colors": "الألوان",
+        "colorsValue": "16 مليون",
+        "brightness": "السطوع",
+        "energy": "الطاقة",
+        "lifespan": "العمر الافتراضي",
+        "lifespanValue": "25,000 ساعة"
+      }
+    },
+    "smartSwitch": {
+      "name": "مفتاح الإضاءة الذكي",
+      "description": "مفتاح إضاءة بالتحكم الصوتي والتطبيق",
+      "specs": {
+        "installation": "التركيب",
+        "installationValue": "لا يتطلب سلك محايد",
+        "dimming": "التعتيم",
+        "dimmingValue": "مدى كامل",
+        "voiceControl": "التحكم الصوتي",
+        "scheduling": "الجدولة",
+        "schedulingValue": "وظائف مؤقت متقدمة"
+      }
+    },
+    "motionLight": {
+      "name": "إضاءة مستشعر الحركة",
+      "description": "إضاءة تلقائية مع كشف الحركة",
+      "specs": {
+        "detectionRange": "مدى الكشف",
+        "autoShutOff": "الإغلاق التلقائي",
+        "autoShutOffValue": "قابل للتخصيص",
+        "brightness": "السطوع",
+        "weatherResistant": "مقاوم للطقس"
+      }
+    },
+    "smartThermostat": {
+      "name": "ثرموستات ذكي",
+      "description": "تحسين المناخ بالذكاء الاصطناعي",
+      "specs": {
+        "learning": "التعلم",
+        "learningValue": "مدعوم بالذكاء الاصطناعي",
+        "energySavings": "توفير الطاقة",
+        "energySavingsValue": "حتى 23%",
+        "compatibility": "التوافق",
+        "compatibilityValue": "معظم أنظمة التكييف",
+        "remoteControl": "التحكم عن بُعد",
+        "remoteControlValue": "مُمكَّن بـ WiFi"
+      }
+    },
+    "smartFan": {
+      "name": "مروحة سقف ذكية",
+      "description": "مروحة بالتحكم عن بُعد مع جدولة",
+      "specs": {
+        "speedSettings": "إعدادات السرعة",
+        "speedSettingsValue": "6 سرعات",
+        "direction": "الاتجاه",
+        "directionValue": "قابل للعكس",
+        "light": "الضوء",
+        "lightValue": "LED متكامل",
+        "energy": "الطاقة",
+        "energyValue": "كفاءة محرك DC"
+      }
+    },
+    "smartBlinds": {
+      "name": "ستائر النوافذ المؤتمتة",
+      "description": "تحكم في الستائر والسترات الذكية",
+      "specs": {
+        "motor": "المحرك",
+        "motorValue": "هادئ جداً",
+        "power": "الطاقة",
+        "powerValue": "بطارية قابلة للشحن",
+        "control": "التحكم",
+        "controlValue": "تطبيق، صوت، جدولة",
+        "installation": "التركيب",
+        "installationValue": "تحديث سهل"
+      }
+    },
+    "smartTV": {
+      "name": "تكامل التلفزيون الذكي",
+      "description": "تحكم ترفيهي مركزي",
+      "specs": {
+        "screenSize": "حجم الشاشة",
+        "smartFeatures": "الميزات الذكية",
+        "smartFeaturesValue": "بث مدمج",
+        "voiceControl": "التحكم الصوتي",
+        "voiceControlValue": "مساعد متعدد",
+        "connectivity": "الاتصال"
+      }
+    },
+    "soundSystem": {
+      "name": "صوتيات المنزل الكامل",
+      "description": "نظام بث صوتي متعدد الغرف",
+      "specs": {
+        "zones": "المناطق",
+        "zonesValue": "حتى 8 غرف",
+        "audioQuality": "جودة الصوت",
+        "audioQualityValue": "ستيريو Hi-Fi",
+        "streaming": "البث",
+        "streamingValue": "جميع الخدمات الرئيسية",
+        "control": "التحكم",
+        "controlValue": "صوت + تطبيق"
+      }
+    },
+    "voiceAssistant": {
+      "name": "مركز المساعد الصوتي",
+      "description": "أتمتة المنزل بالتحكم الصوتي",
+      "specs": {
+        "voiceRecognition": "التعرف على الصوت",
+        "voiceRecognitionValue": "ميكروفونات بعيدة المدى",
+        "integration": "التكامل",
+        "integrationValue": "1000+ جهاز",
+        "music": "الموسيقى",
+        "musicValue": "جودة صوت فائقة",
+        "privacy": "الخصوصية",
+        "privacyValue": "زر كتم"
+      }
+    },
+    "smartFridge": {
+      "name": "ثلاجة ذكية",
+      "description": "ثلاجة متصلة مع تتبع المخزون",
+      "specs": {
+        "capacity": "السعة",
+        "features": "الميزات",
+        "featuresValue": "كاميرات داخلية",
+        "energy": "الطاقة",
+        "energyValue": "معتمد ENERGY STAR",
+        "connectivity": "الاتصال",
+        "connectivityValue": "WiFi، شاشة لمس"
+      }
+    },
+    "smartOven": {
+      "name": "نظام الفرن الذكي",
+      "description": "تحكم ومراقبة الطبخ عن بُعد",
+      "specs": {
+        "cookingModes": "أوضاع الطبخ",
+        "cookingModesValue": "12 مبرمج مسبقاً",
+        "temperature": "درجة الحرارة",
+        "temperatureValue": "تحكم دقيق",
+        "safety": "السلامة",
+        "safetyValue": "إغلاق تلقائي",
+        "monitoring": "المراقبة",
+        "monitoringValue": "كاميرا داخلية"
+      }
+    },
+    "smartDishwasher": {
+      "name": "غسالة أطباق ذكية",
+      "description": "تنظيف فعال مع تحكم بالتطبيق",
+      "specs": {
+        "capacity": "السعة",
+        "capacityValue": "16 مجموعة أطباق",
+        "efficiency": "الكفاءة",
+        "cycles": "الدورات",
+        "cyclesValue": "8 دورات غسيل",
+        "noise": "الضوضاء",
+        "noiseValue": "هادئ جداً 38dB"
+      }
+    },
+    "wifiRouter": {
+      "name": "نظام WiFi شبكي",
+      "description": "إنترنت عالي السرعة في جميع أنحاء المنزل",
+      "specs": {
+        "speed": "السرعة",
+        "speedValue": "WiFi 6E حتى 6Gbps",
+        "coverage": "التغطية",
+        "coverageValue": "حتى 6,000 قدم مربع",
+        "devices": "الأجهزة",
+        "devicesValue": "دعم 200+ جهاز",
+        "security": "الأمان"
+      }
+    }
+  },
   "header": {
     "title": "حاسبة تكلفة المنزل الذكي",
     "subtitle": "حول منزلك إلى ملاذ ذكي مع حلول إنترنت الأشياء الشاملة لدينا",
@@ -113,7 +361,29 @@
     }
   },
   "steps": {
+    "floorUpload": {
+      "title": "رفع المخططات الهندسية",
+      "subtitle": "ارفع ملفات DWG لكل طابق. سنعالجها لوضع دقيق للأجهزة.",
+      "floorsToUpload": "الطوابق المطلوب رفعها",
+      "uploadProgress": "تقدم الرفع",
+      "uploadFloor": "رفع الطابق",
+      "dragDropText": "اسحب وأفلت ملف DWG أو انقر للتصفح",
+      "dropzoneText": "اختر ملف DWG أو اسحبه هنا",
+      "dropzoneActive": "أفلت ملفك هنا...",
+      "dropzoneSupport": "يدعم ملفات .dwg حتى 50 ميجابايت",
+      "uploadedFiles": "الملفات المرفوعة",
+      "requirements": {
+        "title": "متطلبات الملف",
+        "items": "تفضيل صيغة AutoCAD DWG,الحد الأقصى لحجم الملف: 50 ميجابايت,تضمين معلومات الأبعاد والمقياس,ملف واحد لكل مستوى طابق"
+      },
+      "status": {
+        "uploading": "جاري الرفع...",
+        "completed": "مكتمل"
+      },
+      "nextStep": "التالي: وضع الأجهزة"
+    },
     "inputMethod": {
+      "recommended": "موصى به",
       "title": "كيف تود تصميم منزلك الذكي؟",
       "subtitle": "اختر الطريقة التي تناسبك أفضل. كلا الخيارين سيعطيك تقدير تكلفة شامل.",
       "manual": {
@@ -564,5 +834,79 @@
   "qty": "الكمية",
   "noDevicesFound": "لم يتم العثور على أجهزة",
   "tryDifferentCategory": "جرب اختيار فئة مختلفة"
-}
+},
+"floorPlan": {
+  "rotate": "تدوير",
+  "remove": "إزالة", 
+  "zoomIn": "تكبير",
+  "zoomOut": "تصغير",
+  "dwgFloorPlan": "مخطط أرضي DWG",
+  "dropDeviceHere": "أسقط الجهاز هنا",
+  "noDevicesPlaced": "لا توجد أجهزة موضوعة",
+  "dragInstructions": "اسحب الأجهزة من اللوحة اليسرى لوضعها على مخطط الطابق",
+  "devicesPlaced": "الأجهزة الموضوعة", 
+  "scale": "المقياس",
+  "canvas": "اللوحة"
+},
+"visualization3D": {
+  "device": "جهاز",
+  "sqft": "قدم مربع"
+},
+"contactInfo": {
+  "formDescription": "سنستخدم هذا لإنشاء وإرسال عرض الأسعار الشخصي الخاص بك"
+},
+"costCalculation": {
+  "unknownDevice": "جهاز غير معروف",
+  "creatingQuote": "إنشاء عرض الأسعار الشخصي الخاص بك",
+  "sqft": "قدم مربع",
+  "installationDescription": "فنيون معتمدون، اختبار وتكوين",
+  "taxDescription": "وفقاً لأنظمة الضرائب في المملكة العربية السعودية",
+  "allInclusive": "حزمة منزل ذكي شاملة"
+},
+"devicePlacement": {
+  "floorPlan": "مخطط الطابق",
+  "device": "جهاز",
+  "devices": "أجهزة",
+  "placed": "موضوع"
+},
+"stepProgress": {
+    "yourProgress": "تقدمك",
+    "stepCount": "الخطوة {{current}} من {{total}}",
+    "inputMethod": {
+      "title": "طريقة الإدخال",
+      "description": "اختر النهج"
+    },
+    "propertyDetails": {
+      "title": "تفاصيل العقار",
+      "description": "معلومات أساسية"
+    },
+    "floorUpload": {
+      "title": "مخططات الطوابق",
+      "description": "رفع الرسوم"
+    },
+    "devicePlacement": {
+      "title": "اختيار الأجهزة",
+      "description": "اختر الأجهزة",
+      "titleDwg": "وضع الأجهزة",
+      "descriptionDwg": "وضع الأجهزة"
+    },
+    "3dVisualization": {
+      "title": "معاينة ثلاثية الأبعاد",
+      "description": "عرض التصميم"
+    },
+    "costCalculation": {
+      "title": "تقدير التكلفة",
+      "description": "مراجعة التسعير"
+    },
+    "contactInfo": {
+      "title": "معلومات الاتصال",
+      "description": "تفاصيلك"
+    },
+    "quoteGeneration": {
+      "title": "العرض جاهز",
+      "description": "احصل على العرض"
+    },
+    "professionalMode": "الوضع الاحترافي",
+    "quickMode": "الوضع السريع"
+  }
 }

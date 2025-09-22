@@ -1,9 +1,14 @@
 // src/components/DeviceLibrary/DeviceLibrary.tsx
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import Image from 'next/image';
 import { FaSearch, FaFilter } from 'react-icons/fa';
-import { devices, deviceCategories, getDevicesByCategory } from '@/data/devices';
+import { 
+  getDevicesWithFallback, 
+  getDeviceCategories, 
+  getDevicesByCategory as getStaticDevicesByCategory,
+  devices as staticDevices 
+} from '@/data/devices';
 import { Device, DeviceCategory } from '@/types';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -29,7 +34,7 @@ const DraggableDevice: React.FC<DraggableDeviceProps> = ({ device }) => {
     <div
       ref={ref}
       className={`
-        drag-item p-3 bg-white rounded-xl border border-gray-200 transition-all duration-200 hover:shadow-lg hover:scale-105
+        drag-item p-3 bg-white rounded-xl border border-gray-200 transition-all duration-200 hover:shadow-lg hover:scale-105 cursor-grab active:cursor-grabbing
         ${isDragging ? 'opacity-50 scale-95' : ''}
       `}
     >
@@ -39,6 +44,7 @@ const DraggableDevice: React.FC<DraggableDeviceProps> = ({ device }) => {
           alt={device.name}
           fill
           className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className="space-y-1">
@@ -58,18 +64,55 @@ const DeviceLibrary: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<DeviceCategory | 'all'>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredDevices = devices.filter(device => {
-    const matchesCategory = selectedCategory === 'all' || device.category === selectedCategory;
-    const matchesSearch = device.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         device.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  // Get translated devices and categories
+  const translatedDevices = useMemo(() => {
+    try {
+      return getDevicesWithFallback(t);
+    } catch (error) {
+      console.warn('Failed to get translated devices, using static fallback:', error);
+      return staticDevices;
+    }
+  }, [t]);
+
+  const translatedCategories = useMemo(() => {
+    try {
+      return getDeviceCategories(t);
+    } catch (error) {
+      console.warn('Failed to get translated categories, using static fallback:', error);
+      // Fallback to static categories with basic translation attempt
+      return [
+        { id: 'security', name: t('devices.categories.security') || 'Security & Safety', icon: 'shield-alt' },
+        { id: 'lighting', name: t('devices.categories.lighting') || 'Lighting & Climate', icon: 'lightbulb' },
+        { id: 'climate', name: t('devices.categories.climate') || 'Climate Control', icon: 'thermometer-half' },
+        { id: 'entertainment', name: t('devices.categories.entertainment') || 'Entertainment', icon: 'tv' },
+        { id: 'kitchen', name: t('devices.categories.kitchen') || 'Kitchen & Appliances', icon: 'utensils' },
+        { id: 'bathroom', name: t('devices.categories.bathroom') || 'Bathroom', icon: 'bath' },
+        { id: 'outdoor', name: t('devices.categories.outdoor') || 'Outdoor', icon: 'tree' },
+      ];
+    }
+  }, [t]);
+
+  // Helper function to get devices by category from translated devices
+  const getTranslatedDevicesByCategory = (category: DeviceCategory): Device[] => {
+    return translatedDevices.filter(device => device.category === category);
+  };
+
+  const filteredDevices = useMemo(() => {
+    return translatedDevices.filter(device => {
+      const matchesCategory = selectedCategory === 'all' || device.category === selectedCategory;
+      const matchesSearch = device.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           device.description.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [translatedDevices, selectedCategory, searchTerm]);
 
   return (
     <div className="bg-white rounded-2xl shadow-xl h-full flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('deviceLibrary.title')}</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          {t('deviceLibrary.title')}
+        </h3>
         
         {/* Search */}
         <div className="relative mb-4">
@@ -79,7 +122,7 @@ const DeviceLibrary: React.FC = () => {
             placeholder={t('deviceLibrary.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-accent-500 focus:border-accent-500"
           />
         </div>
 
@@ -95,10 +138,10 @@ const DeviceLibrary: React.FC = () => {
               }
             `}
           >
-            {t('devices.categories.all')} ({devices.length})
+            {t('devices.categories.all')} ({translatedDevices.length})
           </button>
-          {deviceCategories.map(category => {
-            const categoryDevices = getDevicesByCategory(category.id as DeviceCategory);
+          {translatedCategories.map(category => {
+            const categoryDevices = getTranslatedDevicesByCategory(category.id as DeviceCategory);
             return (
               <button
                 key={category.id}
@@ -111,7 +154,7 @@ const DeviceLibrary: React.FC = () => {
                   }
                 `}
               >
-                {t(`devices.categories.${category.id}`)} ({categoryDevices.length})
+                {category.name} ({categoryDevices.length})
               </button>
             );
           })}
@@ -129,7 +172,9 @@ const DeviceLibrary: React.FC = () => {
         ) : (
           <div className="text-center py-8">
             <FaFilter className="text-4xl text-gray-300 mx-auto mb-4" />
-            <h4 className="text-lg font-medium text-gray-600 mb-2">{t('deviceLibrary.noDevicesFound')}</h4>
+            <h4 className="text-lg font-medium text-gray-600 mb-2">
+              {t('deviceLibrary.noDevicesFound')}
+            </h4>
             <p className="text-gray-500 text-sm">
               {t('deviceLibrary.adjustFilters')}
             </p>
