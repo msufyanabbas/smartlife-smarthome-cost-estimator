@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 import Header from './Header';
 import Footer from './Footer';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,21 +14,26 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ 
   children, 
-  title = 'SmartLife - Smart Home Cost Estimator',
-  description = 'Transform your home into a smart sanctuary with our comprehensive IoT solutions'
+  title,
+  description
 }) => {
+  const { t, isRTL } = useLanguage();
+  
+  const pageTitle = title || t('layout.title');
+  const pageDescription = description || t('layout.description');
+
   return (
     <>
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </Head>
 
-      <div className="min-h-screen flex flex-col bg-primary-900">
+      <div className={`min-h-screen flex flex-col bg-primary-900 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
         {/* Background Pattern */}
         <div className="fixed inset-0 opacity-10">
           <div className="absolute inset-0" style={{
@@ -45,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({
         
         {/* Toast Notifications */}
         <Toaster
-          position="top-right"
+          position={isRTL ? "top-left" : "top-right"}
           toastOptions={{
             className: '',
             style: {
@@ -56,6 +62,7 @@ const Layout: React.FC<LayoutProps> = ({
               fontFamily: 'Poppins, sans-serif',
               fontWeight: '500',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
+              direction: isRTL ? 'rtl' : 'ltr',
             },
             success: {
               iconTheme: {

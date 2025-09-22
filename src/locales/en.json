@@ -145,24 +145,14 @@
       "manual": {
         "title": "Manual Input",
         "description": "Fill out a simple form to describe your property and select smart devices",
-        "features": [
-          "Quick and easy setup",
-          "Guided device selection",
-          "No technical files needed",
-          "Instant cost estimation"
-        ],
+        "features": "Quick and easy setup,Guided device selection,No technical files needed,Instant cost estimation",
         "time": "5-10 minutes",
         "complexity": "Beginner Friendly"
       },
       "dwg": {
         "title": "Upload Floor Plans",
         "description": "Upload your architectural drawings for precise device placement and 3D visualization",
-        "features": [
-          "Precise floor plan integration",
-          "Drag & drop device placement",
-          "3D visualization preview",
-          "Professional accuracy"
-        ],
+        "features": "Precise floor plan integration,Drag & drop device placement,3D visualization preview,Professional accuracy",
         "time": "15-20 minutes",
         "complexity": "Professional"
       },
@@ -175,7 +165,8 @@
             "You don't have architectural drawings",
             "You're in the early planning stages",
             "You prefer a guided experience"
-          ]
+          ],
+          "features": "You want a quick estimate,You don't have architectural drawings,You're in the early planning stages,You prefer a guided experience"
         },
         "dwg": {
           "title": "Choose Floor Plans if:",
@@ -184,7 +175,8 @@
             "You want precise device placement",
             "You need professional-grade accuracy",
             "You want 3D visualization"
-          ]
+          ],
+          "features": "You have architectural drawings,You want precise device placement,You need professional-grade accuracy,You want 3D visualization"
         }
       },
       "continueWith": "Continue with",

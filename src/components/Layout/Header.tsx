@@ -46,11 +46,11 @@ const Header: React.FC = () => {
           </h1>
           
           {/* Subtitle */}
-          <p className={`text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto mb-8 font-light leading-relaxed ${
-            isRTL ? 'font-arabic text-right' : 'text-left'
-          }`}>
-            {t('header.subtitle')}
-          </p>
+<p className={`text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto mb-8 font-light leading-relaxed ${
+  isRTL ? 'font-arabic text-center' : 'text-center'
+}`}>
+  {t('header.subtitle')}
+</p>
           
           {/* Feature Pills */}
           <div className={`flex flex-wrap justify-center gap-4 mt-8 ${
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
               <div className={`flex items-center gap-2 text-white ${
                 isRTL ? 'flex-row-reverse' : ''
               }`}>
-                <FaCog className="text-accent-300" />
+                <FaCog className="text-accent-300 " />
                 <span className={`font-medium ${isRTL ? 'font-arabic' : ''}`}>
                   {t('header.features.professionalInstallation')}
                 </span>
