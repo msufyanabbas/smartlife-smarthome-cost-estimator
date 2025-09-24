@@ -284,9 +284,6 @@ const DevicePlacementStep: React.FC = () => {
         )}
       </DndProvider>
 
-      {/* Device Summary */}
-     
-
       {/* Navigation */}
       <div className="flex justify-between mt-8">
         <button

@@ -8,6 +8,21 @@ export interface PropertyDetails {
   floors: number;
 }
 
+// Device States Interface
+export interface DeviceState {
+  [deviceId: string]: {
+    isOn: boolean;
+    animationProgress: number;
+    intensity?: number;
+    doorOpen?: boolean;
+    rotation?: number;
+    lastToggled?: number;
+    isAlarming?: boolean;
+    temperature?: number;
+    fanSpeed?: string;
+  };
+}
+
 // Device Types
 export interface Device {
   id: string;
@@ -17,6 +32,7 @@ export interface Device {
   description: string;
   icon: string;
   image: string;
+  imageUrl?: string | any;
   dimensions: {
     width: number;
     height: number;
@@ -302,4 +318,68 @@ export interface ValidationError {
 
 export interface FormErrors {
   [key: string]: string | undefined;
+}
+
+export interface DeviceCardProps {
+  device: Device;
+  isSelected: boolean;
+  onToggle: (device: Device) => void;
+  onQuantityChange: (device: Device, quantity: number) => void;
+  quantity: number;
+}
+
+export interface Room {
+  id: string;
+  name: string;
+  type: 'room' | 'bathroom' | 'kitchen' | 'bedroom' | 'living' | 'hallway';
+  bounds: { minX: number; maxX: number; minY: number; maxY: number };
+  walls: Array<{ start: { x: number; y: number }; end: { x: number; y: number } }>;
+  doors: Array<{ position: { x: number; y: number }; width: number; direction: number }>;
+  windows: Array<{ position: { x: number; y: number }; width: number; direction: number }>;
+  area: number;
+}
+
+
+export interface FloorStructure {
+  rooms: Room[];
+  walls: Array<{ start: { x: number; y: number }; end: { x: number; y: number }; thickness: number }>;
+  doors: Array<{ position: { x: number; y: number }; width: number; direction: number; roomIds: string[] }>;
+  windows: Array<{ position: { x: number; y: number }; width: number; direction: number }>;
+  bounds: { minX: number; maxX: number; minY: number; maxY: number };
+}
+
+
+// Room structure interfaces
+export interface Room {
+  id: string;
+  name: string;
+  type: 'room' | 'bathroom' | 'kitchen' | 'bedroom' | 'living' | 'hallway';
+  bounds: { minX: number; maxX: number; minY: number; maxY: number };
+  walls: Array<{ start: { x: number; y: number }; end: { x: number; y: number } }>;
+  doors: Array<{ position: { x: number; y: number }; width: number; direction: number }>;
+  windows: Array<{ position: { x: number; y: number }; width: number; direction: number }>;
+  area: number;
+}
+
+export interface FloorStructure {
+  rooms: Room[];
+  walls: Array<{ start: { x: number; y: number }; end: { x: number; y: number }; thickness: number }>;
+  doors: Array<{ position: { x: number; y: number }; width: number; direction: number; roomIds: string[] }>;
+  windows: Array<{ position: { x: number; y: number }; width: number; direction: number }>;
+  bounds: { minX: number; maxX: number; minY: number; maxY: number };
+}
+
+export interface PlacedDeviceComponentProps {
+  placedDevice: PlacedDevice;
+  onRemove: (id: string) => void;
+  onMove: (id: string, x: number, y: number) => void;
+  onRotate: (id: string) => void;
+  onResize: (id: string, scale: number) => void;
+  scale: number;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
+}
+
+export interface FloorPlanCanvasProps {
+  floor: FloorPlan;
 }

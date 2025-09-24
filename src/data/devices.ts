@@ -702,3 +702,5 @@ export const calculateDeviceCost = (deviceIds: string[]): number => {
     return total + (device?.price || 0);
   }, 0);
 };
+
+

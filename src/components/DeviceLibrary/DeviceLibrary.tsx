@@ -1,63 +1,14 @@
 // src/components/DeviceLibrary/DeviceLibrary.tsx
-import React, { useState, useRef, useMemo } from 'react';
-import { useDrag } from 'react-dnd';
-import Image from 'next/image';
+import React, { useState, useMemo } from 'react';
 import { FaSearch, FaFilter } from 'react-icons/fa';
 import { 
   getDevicesWithFallback, 
   getDeviceCategories, 
-  getDevicesByCategory as getStaticDevicesByCategory,
   devices as staticDevices 
 } from '@/data/devices';
 import { Device, DeviceCategory } from '@/types';
 import { useLanguage } from '@/contexts/LanguageContext';
-
-interface DraggableDeviceProps {
-  device: Device;
-}
-
-const DraggableDevice: React.FC<DraggableDeviceProps> = ({ device }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'device',
-    item: { device },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
-
-  // Connect the drag source to our ref
-  drag(ref);
-
-  return (
-    <div
-      ref={ref}
-      className={`
-        drag-item p-3 bg-white rounded-xl border border-gray-200 transition-all duration-200 hover:shadow-lg hover:scale-105 cursor-grab active:cursor-grabbing
-        ${isDragging ? 'opacity-50 scale-95' : ''}
-      `}
-    >
-      <div className="aspect-square bg-gray-100 rounded-lg mb-3 relative overflow-hidden">
-        <Image
-          src={device.image}
-          alt={device.name}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </div>
-      <div className="space-y-1">
-        <h4 className="font-medium text-gray-800 text-sm leading-tight">{device.name}</h4>
-        <p className="text-xs text-gray-500 line-clamp-2">{device.description}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-bold text-accent-600">SAR {device.price.toLocaleString()}</span>
-          <div className="w-4 h-4 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"></div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import DraggableDevice from '../DraggableDevice';
 
 const DeviceLibrary: React.FC = () => {
   const { t } = useLanguage();
@@ -182,15 +133,7 @@ const DeviceLibrary: React.FC = () => {
         )}
       </div>
 
-      {/* Instructions */}
-      <div className="p-4 border-t border-gray-200 bg-gray-50">
-        <div className="text-xs text-gray-600 space-y-1">
-          <p className="font-medium">{t('deviceLibrary.instructions.title')}</p>
-          <p>{t('deviceLibrary.instructions.step1')}</p>
-          <p>{t('deviceLibrary.instructions.step2')}</p>
-          <p>{t('deviceLibrary.instructions.step3')}</p>
-        </div>
-      </div>
+    
     </div>
   );
 };
